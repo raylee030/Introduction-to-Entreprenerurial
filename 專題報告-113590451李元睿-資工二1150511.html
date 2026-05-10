@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RentSafe AI 租屋決策平台 — 創業概論 114-2</title>
+  <script src="deck-stage.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #111;
+    }
+
+    /* ── Design tokens ── */
+    :root {
+      --bg: #FDF6F0;
+      --teal-dark: #1C5C50;
+      --teal-mid: #2D7D6F;
+      --teal-light: #4AA898;
+      --teal-pale: #A8D5CB;
+      --teal-wash: #D6EDE8;
+      --coral: #E8897A;
+      --coral-pale: #F2C4BB;
+      --coral-wash: #F9E5E1;
+      --gold: #F5D76E;
+      --gold-pale: #FFF3C4;
+      --purple: #8B5CF6;
+      --purple-pale: #E8D5FF;
+      --white: #FFFFFF;
+      --ink: #111111;
+      --ink-mid: #3D5040;
+      --ink-lite: #6B8C85;
+    }
+
+    /* ── Slide base ── */
+    section {
+      width: 1920px;
+      height: 1080px;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Arial Black', 'Noto Sans TC', 'PingFang TC', sans-serif;
+      font-weight: 700;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ── Decorative blob top-left (on every content slide) ── */
+    .blob-tl {
+      position: absolute;
+      left: -60px;
+      top: -50px;
+      width: 380px;
+      height: 310px;
+      background: var(--coral-pale);
+      border-radius: 50%;
+      opacity: 0.5;
+      z-index: 0;
+    }
+
+    .blob-tl2 {
+      position: absolute;
+      left: -20px;
+      top: 280px;
+      width: 280px;
+      height: 280px;
+      background: var(--teal-pale);
+      border-radius: 50%;
+      opacity: 0.4;
+      z-index: 0;
+    }
+
+    /* ── Bottom nav bar ── */
+    .nav-bar {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 1920px;
+      height: 60px;
+      background: var(--teal-dark);
+      display: flex;
+      align-items: center;
+      padding: 0 48px;
+      gap: 0;
+      z-index: 10;
+    }
+
+    .nav-item {
+      color: rgba(255, 255, 255, 0.55);
+      font-family: Arial, sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 0 18px;
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+      white-space: nowrap;
+    }
+
+    .nav-item:last-of-type {
+      border-right: none;
+    }
+
+    .nav-item.active {
+      color: var(--gold);
+    }
+
+    .nav-page {
+      margin-left: auto;
+      color: var(--gold);
+      font-family: Arial, sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    /* ── Slide title ── */
+    .slide-title {
+      font-family: 'Arial Black', 'Noto Sans TC', sans-serif;
+      font-size: 64px;
+      font-weight: 900;
+      color: var(--teal-dark);
+      letter-spacing: -1px;
+      line-height: 1.1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .slide-title-line {
+      width: 80px;
+      height: 6px;
+      background: var(--coral);
+      margin: 16px 0 36px;
+      border-radius: 3px;
+    }
+
+    /* ── Content area ── */
+    .content {
+      position: absolute;
+      left: 100px;
+      top: 100px;
+      width: 1720px;
+      height: 910px;
+      z-index: 1;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--white);
+      border: 2.5px solid var(--teal-pale);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: var(--teal-mid);
+      padding: 18px 28px;
+      color: var(--white);
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .card-body {
+      padding: 24px 28px;
+    }
+
+    /* ── Bullet list ── */
+    .blist {
+      list-style: none;
+      padding: 0;
+    }
+
+    .blist li {
+      font-family: Arial, 'Noto Sans TC', sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--ink-mid);
+      padding: 6px 0 6px 36px;
+      position: relative;
+      line-height: 1.55;
+    }
+
+    .blist li::before {
+      content: '●';
+      color: var(--coral);
+      position: absolute;
+      left: 0;
+      font-size: 18px;
+      top: 12px;
+    }
+
+    .blist li.sub {
+      font-size: 26px;
+      padding-left: 64px;
+      color: var(--ink-lite);
+    }
+
+    .blist li.sub::before {
+      content: '–';
+      color: var(--teal-light);
+      font-size: 26px;
+      top: 6px;
+      left: 36px;
+    }
+
+    /* ── Helpers ── */
+    .teal {
+      color: var(--teal-dark);
+    }
+
+    .coral {
+      color: var(--coral);
+    }
+
+    .gold {
+      color: #B8860B;
+    }
+
+    .green {
+      color: var(--teal-mid);
+    }
+  </style>
+</head>
+
+<body>
+  <deck-stage width="1920" height="1080">
+
+    <!-- ══════════════════════════════════════
+  SLIDE 1: COVER
+══════════════════════════════════════ -->
+    <section data-label="01 封面">
+      <!-- Large decorative blobs -->
+      <div
+        style="position:absolute;left:-100px;top:-120px;width:680px;height:580px;background:#F2C4BB;border-radius:50%;opacity:0.45;z-index:0;">
+      </div>
+      <div
+        style="position:absolute;left:-60px;top:480px;width:440px;height:440px;background:#A8D5CB;border-radius:50%;opacity:0.38;z-index:0;">
+      </div>
+      <div
+        style="position:absolute;right:-80px;bottom:-80px;width:500px;height:500px;background:#D6EDE8;border-radius:50%;opacity:0.3;z-index:0;">
+      </div>
+      <!-- Gold dots decorative -->
+      <div
+        style="position:absolute;left:220px;top:580px;width:22px;height:22px;background:#F5D76E;border-radius:50%;opacity:0.9;z-index:1;">
+      </div>
+      <div
+        style="position:absolute;left:272px;top:552px;width:22px;height:22px;background:#F5D76E;border-radius:50%;opacity:0.9;z-index:1;">
+      </div>
+      <div
+        style="position:absolute;left:324px;top:568px;width:22px;height:22px;background:#F5D76E;border-radius:50%;opacity:0.9;z-index:1;">
+      </div>
+      <div
+        style="position:absolute;left:248px;top:614px;width:22px;height:22px;background:#F5D76E;border-radius:50%;opacity:0.9;z-index:1;">
+      </div>
+
+      <!-- Main cover content -->
+      <div
+        style="position:absolute;left:0;top:0;width:1920px;height:1020px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;z-index:2;">
+        <!-- University badge -->
+        <div style="background:var(--teal-wash);border-radius:40px;padding:12px 40px;margin-bottom:32px;">
+          <span
+            style="font-family:Arial,'Noto Sans TC',sans-serif;font-size:28px;font-weight:700;color:var(--teal-dark);letter-spacing:2px;">國立臺北科技大學　創業概論
+            114-2</span>
+        </div>
+
+        <!-- Main title block -->
+        <div style="text-align:center;margin-bottom:12px;">
+          <div
+            style="font-family:'Arial Black','Noto Sans TC',sans-serif;font-size:110px;font-weight:900;color:var(--teal-dark);letter-spacing:-2px;line-height:1.05;">
+            好窩</div>
+          <div
+            style="font-family:'Arial Black','Noto Sans TC',sans-serif;font-size:62px;font-weight:900;color:var(--coral);letter-spacing:4px;margin-top:8px;">
+            租屋媒合平台</div>
+        </div>
+
+        <!-- Separator line with dots -->
+        <div style="display:flex;align-items:center;gap:16px;margin:32px 0 44px;">
+          <div style="width:160px;height:4px;background:var(--teal-pale);border-radius:2px;"></div>
+          <div style="width:14px;height:14px;background:var(--coral);border-radius:50%;"></div>
+          <div style="width:160px;height:4px;background:var(--teal-pale);border-radius:2px;"></div>
+        </div>
+
+        <!-- Info row -->
+        <div style="display:flex;gap:64px;align-items:center;">
+          <div style="text-align:center;">
+            <div
+              style="font-family:Arial,'Noto Sans TC',sans-serif;font-size:24px;color:var(--ink-lite);font-weight:700;margin-bottom:6px;">
+              學生</div>
+            <div
+              style="font-family:Arial,'Noto Sans TC',sans-serif;font-size:32px;font-weight:900;color:var(--teal-dark);">
+              資工二　113590451　李元睿</div>
+          </div>
+          <div style="width:2px;height:60px;background:var(--teal-pale);"></div>
+          <div style="text-align:center;">
+            <div
+              style="font-family:Arial,'Noto Sans TC',sans-serif;font-size:24px;color:var(--ink-lite);font-weight:700;margin-bottom:6px;">
+              指導教師</div>
+            <div
+              style="font-family:Arial,'Noto Sans TC',sans-serif;font-size:32px;font-weight:900;color:var(--teal-dark);">
+              許再安　教授</div>
+          </div>
+          <div style="width:2px;height:60px;background:var(--teal-pale);"></div>
+          <div style="text-align:center;">
+            <div
+              style="font-family:Arial,'Noto Sans TC',sans-serif;font-size:24px;color:var(--ink-lite);font-weight:700;margin-bottom:6px;">
+              日期</div>
+            <div
+              style="font-family:Arial,'Noto Sans TC',sans-serif;font-size:32px;font-weight:900;color:var(--teal-dark);">
+              2026年05月11日</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nav bar -->
+      <div class="nav-bar">
+        <span class="nav-item active">創業動機</span>
+        <span class="nav-item">產品概念</span>
+        <span class="nav-item">產品週期</span>
+        <span class="nav-item">特性要因</span>
+        <span class="nav-item">五力分析</span>
+        <span class="nav-item">SWOT</span>
+        <span class="nav-item">報告結論</span>
+        <span class="nav-item">參考資料</span>
+        <span class="nav-page"></span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+  SLIDE 2: 創業動機
+══════════════════════════════════════ -->
+    <section data-label="02 創業動機">
+      <div class="blob-tl"></div>
+      <div class="blob-tl2"></div>
+
+      <div class="content">
+        <div class="slide-title">創業動機</div>
+        <div class="slide-title-line"></div>
+
+        <div style="display:flex;gap:48px;align-items:flex-start;">
+          <!-- Left: market pain -->
+          <div style="flex:1;">
+            <div
+              style="background:var(--coral-wash);border-left:6px solid var(--coral);border-radius:0 12px 12px 0;padding:20px 28px 20px 24px;margin-bottom:28px;">
+              <div
+                style="font-family:'Arial Black','Noto Sans TC',sans-serif;font-size:32px;color:var(--coral);margin-bottom:4px;">
+                市場痛點觀察</div>
+            </div>
+            <ul class="blist">
+              <li>全台<span class="coral">租屋人口超過 280 萬</span>，以北部學生與年輕上班族為主</li>
+              <li>現行平台<span class="coral">缺乏審核機制</span>：假照片、隱藏費用、口頭約定難舉證</li>
+              <li>房東身份不明，<span class="coral">糾紛歷史無從查證</span>，租屋充滿不確定性</li>
+              <li class="sub">行政院消費保護處年報記載租屋申訴案件<strong>逐年攀升</strong>，為最大糾紛類別之一</li>
+              <li class="sub">學生族與職場新鮮人為<span class="coral">最高風險群體</span></li>
+            </ul>
+          </div>
+
+          <!-- Right: vision -->
+          <div style="flex:1;">
+            <div
+              style="background:var(--teal-wash);border-left:6px solid var(--teal-mid);border-radius:0 12px 12px 0;padding:20px 28px 20px 24px;margin-bottom:28px;">
+              <div
+                style="font-family:'Arial Black','Noto Sans TC',sans-serif;font-size:32px;color:var(--teal-dark);margin-bottom:4px;">
+                個人經驗啟發</div>
+            </div>
+            <ul class="blist">
+              <li>親身遭遇<span class="teal">臨時調漲租金</span>、押金遭不合理扣除</li>
+              <li>入住後才發現蟑螂、漏水、<span class="coral">隔音不佳</span>等問題</li>
+              <li>租屋者真正需要的是<span class="teal">透明、安全、信任</span>的租屋環境</li>
+              <li class="sub">目標：學生、外縣市移工、首次租屋族</li>
+              <li class="sub">讓「租得安心」成為每個人的基本權利</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Core belief box -->
+        <div
+          style="margin-top:44px;background:var(--white);border:2.5px solid var(--teal-pale);border-radius:16px;padding:28px 40px;text-align:center;">
+          <div
+            style="font-family:Arial,'Noto Sans TC',sans-serif;font-size:32px;font-weight:700;color:var(--ink-mid);line-height:1.5;">
+            「讓每一次租屋，都成為安心的開始。」<br>
+            <span
+              style="color:var(--teal-dark);font-family:'Arial Black',sans-serif;">好窩透過科技與制度設計，重新建立租屋市場中的信任關係。</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-bar">
+        <span class="nav-item active">創業動機</span><span class="nav-item">產品概念</span><span
+          class="nav-item">產品週期</span><span class="nav-item">特性要因</span><span class="nav-item">五力分析</span><span
+          class="nav-item">SWOT</span><span class="nav-item">報告結論</span><span class="nav-item">參考資料</span>
+        <span class="nav-page">1 / 8</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+  SLIDE 3: 產品概念圖
+══════════════════════════════════════ -->
+    <section data-label="03 產品概念圖">
+      <div class="blob-tl"></div>
+      <div class="blob-tl2"></div>
+
+      <div class="content">
+        <div class="slide-title">產品概念圖</div>
+        <div class="slide-title-line"></div>
+
+        <div style="display:flex;gap:48px;align-items:flex-start;margin-top:8px;">
+
+          <!-- Left: product screenshot -->
+          <div style="flex:1.6;">
+            <img src="產品概念圖.png"
+              style="width:100%;border-radius:14px;box-shadow:0 8px 36px rgba(0,0,0,0.18);border:2px solid var(--teal-pale);"
+              alt="好窩產品截圖" />
+          </div>
+
+          <!-- Right: brand card + features -->
+          <div style="flex:1;display:flex;flex-direction:column;gap:24px;">
+            <!-- Brand header card -->
+            <div style="background:var(--teal-dark);border-radius:16px;padding:28px 32px;text-align:center;">
+              <div
+                style="font-family:'Arial Black','Noto Sans TC',sans-serif;font-size:48px;color:#fff;letter-spacing:4px;line-height:1.1;">
+                好窩</div>
+              <div
+                style="font-family:Arial,'Noto Sans TC',sans-serif;font-size:26px;color:var(--teal-pale);margin-top:6px;">
+                找對了窩，才真正到家 🏠</div>
+            </div>
+
+            <!-- Six core features -->
+            <div style="background:#fff;border:2.5px solid var(--teal-pale);border-radius:16px;padding:24px 28px;">
+              <div
+                style="font-family:'Arial Black','Noto Sans TC',sans-serif;font-size:28px;color:var(--teal-dark);margin-bottom:16px;">
+                六大核心功能</div>
+              <ul class="blist" style="gap:0;">
+                <li style="font-size:26px;padding:4px 0 4px 34px;">🔐 <span class="teal">身份驗證</span>：地政文件比對，杜絕假房東</li>
+                <li style="font-size:26px;padding:4px 0 4px 34px;">🤖 <span class="teal">AI 媒合</span>：依通勤、習慣、預算推薦</li>
+                <li style="font-size:26px;padding:4px 0 4px 34px;">⭐ <span class="teal">雙向互評</span>：同步盲評，杜絕惡意差評</li>
+                <li style="font-size:26px;padding:4px 0 4px 34px;">📋 <span class="teal">數位合約</span>：電子簽名存證，線上簽署</li>
+                <li style="font-size:26px;padding:4px 0 4px 34px;">💰 <span class="teal">押金託管</span>：第三方保管，杜絕糾紛</li>
+                <li style="font-size:26px;padding:4px 0 4px 34px;">🏠 <span class="teal">房況健檢</span>：入住前拍照，修繕留存</li>
+              </ul>
+            </div>
+
+            <!-- Bottom tagline -->
+            <div
+              style="font-family:Arial,'Noto Sans TC',sans-serif;font-size:24px;font-weight:700;color:var(--ink-lite);text-align:center;">
+              六大模組整合　→　<span style="color:var(--teal-dark);">讓每一次租屋，都成為安心的開始</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-bar">
+        <span class="nav-item">創業動機</span><span class="nav-item active">產品概念</span><span
+          class="nav-item">產品週期</span><span class="nav-item">特性要因</span><span class="nav-item">五力分析</span><span
+          class="nav-item">SWOT</span><span class="nav-item">報告結論</span><span class="nav-item">參考資料</span>
+        <span class="nav-page">2 / 8</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+  SLIDE 4: 產品生命週期
+══════════════════════════════════════ -->
+    <section data-label="04 產品生命週期">
+      <div class="blob-tl"></div>
+      <div class="blob-tl2"></div>
+
+      <div class="content">
+        <div class="slide-title">產品生命週期</div>
+        <div class="slide-title-line"></div>
+
+        <div style="display:flex;gap:48px;align-items:center;">
+          <!-- Chart -->
+          <div style="flex:2;">
+            <svg width="1060" height="500" viewBox="0 0 1060 500" xmlns="http://www.w3.org/2000/svg"
+              style="overflow:visible;">
+              <!-- Axes -->
+              <line x1="60" y1="420" x2="1030" y2="420" stroke="#A8D5CB" stroke-width="3" />
+              <line x1="60" y1="420" x2="60" y2="30" stroke="#A8D5CB" stroke-width="3" />
+              <polygon points="1030,410 1050,420 1030,430" fill="#A8D5CB" />
+              <polygon points="50,30 60,10 70,30" fill="#A8D5CB" />
+              <!-- Axis labels -->
+              <text x="545" y="465" fill="#6B8C85" font-size="26" text-anchor="middle" font-weight="bold"
+                font-family="Arial, sans-serif">時間</text>
+              <text x="26" y="225" fill="#6B8C85" font-size="26" text-anchor="middle" font-weight="bold"
+                font-family="Arial, sans-serif" transform="rotate(-90,26,225)">銷售額</text>
+              <!-- Stage dividers -->
+              <line x1="255" y1="420" x2="255" y2="50" stroke="#E8D5C8" stroke-width="2" stroke-dasharray="8,5" />
+              <line x1="510" y1="420" x2="510" y2="50" stroke="#E8D5C8" stroke-width="2" stroke-dasharray="8,5" />
+              <line x1="775" y1="420" x2="775" y2="50" stroke="#E8D5C8" stroke-width="2" stroke-dasharray="8,5" />
+              <!-- Stage background fills -->
+              <rect x="60" y="50" width="195" height="370" fill="#FDF6F0" opacity="0.6" />
+              <rect x="255" y="50" width="255" height="370" fill="#D6EDE8" opacity="0.25" />
+              <rect x="510" y="50" width="265" height="370" fill="#A8D5CB" opacity="0.18" />
+              <rect x="775" y="50" width="255" height="370" fill="#F2C4BB" opacity="0.2" />
+              <!-- Life cycle curve -->
+              <path
+                d="M100,405 C160,395 220,345 300,240 C380,135 460,85 565,78 C665,70 745,105 825,200 C885,270 945,370 1005,415"
+                stroke="#2D7D6F" stroke-width="6" fill="none" stroke-linecap="round" />
+              <!-- Stage labels -->
+              <text x="157" y="46" fill="#E8897A" font-size="28" text-anchor="middle" font-weight="bold"
+                font-family="Arial Black, sans-serif">導入期</text>
+              <text x="382" y="46" fill="#2D7D6F" font-size="28" text-anchor="middle" font-weight="bold"
+                font-family="Arial Black, sans-serif">成長期</text>
+              <text x="642" y="46" fill="#1C5C50" font-size="28" text-anchor="middle" font-weight="bold"
+                font-family="Arial Black, sans-serif">成熟期</text>
+              <text x="902" y="46" fill="#B05040" font-size="28" text-anchor="middle" font-weight="bold"
+                font-family="Arial Black, sans-serif">衰退期</text>
+              <!-- Time annotations -->
+              <text x="157" y="448" fill="#6B8C85" font-size="24" text-anchor="middle" font-family="Arial, sans-serif"
+                font-weight="bold">2024–2025</text>
+              <text x="382" y="448" fill="#6B8C85" font-size="24" text-anchor="middle" font-family="Arial, sans-serif"
+                font-weight="bold">2026–2028</text>
+              <text x="642" y="448" fill="#6B8C85" font-size="24" text-anchor="middle" font-family="Arial, sans-serif"
+                font-weight="bold">2029–2032</text>
+              <text x="902" y="448" fill="#6B8C85" font-size="24" text-anchor="middle" font-family="Arial, sans-serif"
+                font-weight="bold">2033+</text>
+              <!-- Peak dot -->
+              <circle cx="565" cy="78" r="12" fill="#E8897A" />
+              <line x1="565" y1="66" x2="730" y2="38" stroke="#E8897A" stroke-width="2" stroke-dasharray="4,3" />
+              <text x="738" y="43" fill="#E8897A" font-size="24" font-weight="bold"
+                font-family="Arial, sans-serif">市場高峰</text>
+              <!-- 目前所在 marker on growth curve ~x=340, y≈195 -->
+              <circle cx="340" cy="195" r="14" fill="#2D7D6F" stroke="#fff" stroke-width="3" />
+              <!-- Label box -->
+              <rect x="180" y="220" width="196" height="56" rx="10" fill="#2D7D6F" opacity="0.92" />
+              <text x="278" y="243" fill="#fff" font-size="20" text-anchor="middle" font-weight="bold"
+                font-family="Arial, sans-serif">目前所在</text>
+              <text x="278" y="266" fill="#F5D76E" font-size="20" text-anchor="middle" font-weight="bold"
+                font-family="Arial, sans-serif">2026–2028 成長期</text>
+              <line x1="278" y1="220" x2="340" y2="209" stroke="#2D7D6F" stroke-width="2" stroke-dasharray="4,3" />
+            </svg>
+          </div>
+
+          <!-- Stage details -->
+          <div style="flex:1;display:flex;flex-direction:column;gap:20px;">
+            <div style="display:flex;gap:16px;align-items:flex-start;">
+              <div style="width:14px;min-width:14px;height:14px;background:#E8897A;border-radius:50%;margin-top:8px;">
+              </div>
+              <div>
+                <div style="font-family:'Arial Black',sans-serif;font-size:28px;color:#E8897A;">導入期</div>
+                <div
+                  style="font-family:Arial,'Noto Sans TC',sans-serif;font-size:24px;font-weight:700;color:var(--ink-lite);line-height:1.5;">
+                  2024–2025 概念驗證與校園試點<br>建立首批房源，累積初期口碑</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start;">
+              <div style="width:14px;min-width:14px;height:14px;background:#2D7D6F;border-radius:50%;margin-top:8px;">
+              </div>
+              <div>
+                <div
+                  style="font-family:'Arial Black',sans-serif;font-size:28px;color:#2D7D6F;display:flex;align-items:center;gap:12px;">
+                  成長期 <span
+                    style="background:#2D7D6F;color:#fff;font-size:18px;padding:2px 12px;border-radius:20px;font-family:Arial,sans-serif;">▶
+                    NOW</span></div>
+                <div
+                  style="font-family:Arial,'Noto Sans TC',sans-serif;font-size:24px;font-weight:700;color:var(--ink-lite);line-height:1.5;">
+                  2026–2028 向全台主要城市擴張<br>優化審約技術</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start;">
+              <div style="width:14px;min-width:14px;height:14px;background:#1C5C50;border-radius:50%;margin-top:8px;">
+              </div>
+              <div>
+                <div style="font-family:'Arial Black',sans-serif;font-size:28px;color:#1C5C50;">成熟期</div>
+                <div
+                  style="font-family:Arial,'Noto Sans TC',sans-serif;font-size:24px;font-weight:700;color:var(--ink-lite);line-height:1.5;">
+                  2029–2032 成為台灣租屋首選品牌<br>建構完整租賃生活服務生態系</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start;">
+              <div style="width:14px;min-width:14px;height:14px;background:#B05040;border-radius:50%;margin-top:8px;">
+              </div>
+              <div>
+                <div style="font-family:'Arial Black',sans-serif;font-size:28px;color:#B05040;">衰退期</div>
+                <div
+                  style="font-family:Arial,'Noto Sans TC',sans-serif;font-size:24px;font-weight:700;color:var(--ink-lite);line-height:1.5;">
+                  2033+ 應對人口結構變化<br>轉向銀髮與包租代管市場</div>
+              </div>
+            </div>
+            <div style="background:var(--teal-wash);border-radius:12px;padding:16px 20px;margin-top:4px;">
+              <div
+                style="font-family:Arial,'Noto Sans TC',sans-serif;font-size:24px;font-weight:700;color:var(--teal-dark);">
+                台灣租屋安全媒合平台市場仍屬空白<br>居住正義意識抬頭，數位租屋需求持續成長
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-bar">
+        <span class="nav-item">創業動機</span><span class="nav-item">產品概念</span><span
+          class="nav-item active">產品週期</span><span class="nav-item">特性要因</span><span class="nav-item">五力分析</span><span
+          class="nav-item">SWOT</span><span class="nav-item">報告結論</span><span class="nav-item">參考資料</span>
+        <span class="nav-page">3 / 8</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+  SLIDE 5: 特性要因分析圖
+══════════════════════════════════════ -->
+    <section data-label="05 特性要因分析圖">
+      <div class="blob-tl" style="opacity:0.25;"></div>
+
+      <div class="content" style="left:60px;width:1800px;top:80px;">
+        <div class="slide-title" style="font-size:52px;">特性要因分析圖</div>
+        <div class="slide-title-line" style="margin-bottom:12px;"></div>
+
+        <svg width="1800" height="740" viewBox="0 0 1800 740" xmlns="http://www.w3.org/2000/svg">
+
+          <!-- Fish tail -->
+          <polygon points="30,370 88,326 88,414" fill="#2D7D6F" opacity="0.9" />
+          <polygon points="88,340 130,370 88,400" fill="#E8897A" opacity="0.9" />
+
+          <!-- Main spine -->
+          <line x1="130" y1="370" x2="1660" y2="370" stroke="#1C5C50" stroke-width="7" />
+
+          <!-- ══ Main diagonal bones ══
+           Left pair attach at x=480; right pair at x=1100
+           Tips: upper at y=135, lower at y=605 -->
+          <!-- Upper-left: 行銷策略  (480,370)→(240,135) -->
+          <line x1="480" y1="370" x2="240" y2="135" stroke="#E8897A" stroke-width="5" />
+          <!-- Lower-left: 技術開發  (480,370)→(240,605) -->
+          <line x1="480" y1="370" x2="240" y2="605" stroke="#E8897A" stroke-width="5" />
+          <!-- Upper-right: 平台規劃 (1100,370)→(860,135) -->
+          <line x1="1100" y1="370" x2="860" y2="135" stroke="#4AA898" stroke-width="5" />
+          <!-- Lower-right: 營運管理 (1100,370)→(860,605) -->
+          <line x1="1100" y1="370" x2="860" y2="605" stroke="#4AA898" stroke-width="5" />
+
+          <!-- ══ Sub-branch lines
+           Points sampled at t=0.30, 0.55, 0.78 from tip toward spine.
+           Left-side subs extend 156 px to the LEFT; right-side to the RIGHT. ══ -->
+
+          <!-- 行銷策略 subs -->
+          <line x1="312" y1="206" x2="156" y2="206" stroke="#E8897A" stroke-width="2.5" />
+          <line x1="372" y1="264" x2="216" y2="264" stroke="#E8897A" stroke-width="2.5" />
+          <line x1="427" y1="318" x2="271" y2="318" stroke="#E8897A" stroke-width="2.5" />
+          <!-- 技術開發 subs -->
+          <line x1="312" y1="534" x2="156" y2="534" stroke="#E8897A" stroke-width="2.5" />
+          <line x1="372" y1="476" x2="216" y2="476" stroke="#E8897A" stroke-width="2.5" />
+          <line x1="427" y1="422" x2="271" y2="422" stroke="#E8897A" stroke-width="2.5" />
+          <!-- 平台規劃 subs -->
+          <line x1="932" y1="206" x2="1088" y2="206" stroke="#4AA898" stroke-width="2.5" />
+          <line x1="992" y1="264" x2="1148" y2="264" stroke="#4AA898" stroke-width="2.5" />
+          <line x1="1047" y1="318" x2="1203" y2="318" stroke="#4AA898" stroke-width="2.5" />
+          <!-- 營運管理 subs -->
+          <line x1="932" y1="534" x2="1088" y2="534" stroke="#4AA898" stroke-width="2.5" />
+          <line x1="992" y1="476" x2="1148" y2="476" stroke="#4AA898" stroke-width="2.5" />
+          <line x1="1047" y1="422" x2="1203" y2="422" stroke="#4AA898" stroke-width="2.5" />
+
+          <!-- ══ Category label boxes ══ -->
+          <rect x="100" y="107" width="280" height="56" rx="10" fill="#E8897A" />
+          <text x="240" y="142" fill="#fff" font-size="30" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">行銷策略</text>
+          <rect x="100" y="577" width="280" height="56" rx="10" fill="#E8897A" />
+          <text x="240" y="612" fill="#fff" font-size="30" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">信任機制</text>
+          <rect x="720" y="107" width="280" height="56" rx="10" fill="#4AA898" />
+          <text x="860" y="142" fill="#fff" font-size="30" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">平台開發</text>
+          <rect x="720" y="577" width="280" height="56" rx="10" fill="#4AA898" />
+          <text x="860" y="612" fill="#fff" font-size="30" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">營運管理</text>
+
+          <!-- ══ Sub-branch labels — LEFT (coral) ══ -->
+          <!-- 行銷策略 -->
+          <rect x="0" y="186" width="156" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="78" y="211" fill="#B05040" font-size="24" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">社群推廣</text>
+          <rect x="60" y="244" width="156" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="138" y="269" fill="#B05040" font-size="24" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">校園巡迴</text>
+          <rect x="115" y="298" width="156" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="193" y="323" fill="#B05040" font-size="24" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">口碑轉傳</text>
+          <!-- 信任機制 -->
+          <rect x="0" y="514" width="156" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="78" y="539" fill="#B05040" font-size="24" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">身分查驗</text>
+          <rect x="60" y="456" width="156" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="138" y="481" fill="#B05040" font-size="24" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">房東評價</text>
+          <rect x="115" y="402" width="156" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="193" y="427" fill="#B05040" font-size="24" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">糾紛調解</text>
+
+          <!-- ══ Sub-branch labels — RIGHT (teal) ══ -->
+          <!-- 平台開發 -->
+          <rect x="1088" y="186" width="168" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="1172" y="211" fill="#1C5C50" font-size="24" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">搜尋算法</text>
+          <rect x="1148" y="244" width="168" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="1232" y="269" fill="#1C5C50" font-size="24" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">AI審約</text>
+          <rect x="1203" y="298" width="168" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="1287" y="323" fill="#1C5C50" font-size="24" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">介面體驗</text>
+          <!-- 營運管理 -->
+          <rect x="1088" y="514" width="168" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="1172" y="539" fill="#1C5C50" font-size="24" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">客服支援</text>
+          <rect x="1148" y="456" width="168" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="1232" y="481" fill="#1C5C50" font-size="24" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">房源審核</text>
+          <rect x="1203" y="402" width="168" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="1287" y="427" fill="#1C5C50" font-size="24" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">法規遵循</text>
+
+          <!-- End circle (drawn last so it sits on top of spine) -->
+          <circle cx="1720" cy="370" r="58" fill="#1C5C50" />
+        </svg>
+      </div>
+
+      <div class="nav-bar">
+        <span class="nav-item">創業動機</span><span class="nav-item">產品概念</span><span class="nav-item">產品週期</span><span
+          class="nav-item active">特性要因</span><span class="nav-item">五力分析</span><span class="nav-item">SWOT</span><span
+          class="nav-item">報告結論</span><span class="nav-item">參考資料</span>
+        <span class="nav-page">4 / 8</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+  SLIDE 5b: 行銷策略 ZOOM
+══════════════════════════════════════ -->
+    <section data-label="05b 行銷策略 ZOOM">
+      <div class="blob-tl" style="opacity:0.2;"></div>
+
+      <div class="content" style="left:60px;width:1800px;top:80px;">
+        <div class="slide-title" style="font-size:52px;">行銷策略　<span
+            style="font-size:34px;color:var(--coral);font-family:Arial,sans-serif;">執行細節展開</span></div>
+        <div class="slide-title-line" style="background:var(--coral);margin-bottom:16px;"></div>
+
+        <svg viewBox="0 0 1700 660" width="1700" height="660" xmlns="http://www.w3.org/2000/svg">
+          <!-- Fish tail -->
+          <polygon points="30,330 85,295 85,365" fill="#2D7D6F" opacity="0.8" />
+          <polygon points="85,308 118,330 85,352" fill="#E8897A" opacity="0.8" />
+          <!-- Spine -->
+          <line x1="118" y1="330" x2="1530" y2="330" stroke="#1C5C50" stroke-width="6" />
+          <!-- Effect circle -->
+          <circle cx="1615" cy="330" r="75" fill="#E8897A" />
+          <text x="1615" y="320" fill="#fff" font-size="26" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">行銷</text>
+          <text x="1615" y="348" fill="#FFF3C4" font-size="26" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">策略</text>
+
+          <!-- ── Bone 1 (upper): 校園巡迴 ── -->
+          <line x1="340" y1="330" x2="530" y2="85" stroke="#E8897A" stroke-width="4" />
+          <rect x="440" y="42" width="196" height="52" rx="10" fill="#E8897A" />
+          <text x="538" y="74" fill="#fff" font-size="27" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">校園巡迴</text>
+          <!-- sub-branches go LEFT from bone points -->
+          <line x1="392" y1="249" x2="236" y2="249" stroke="#E8897A" stroke-width="2.5" />
+          <rect x="76" y="229" width="160" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="156" y="254" fill="#B05040" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">社團合作</text>
+          <line x1="440" y1="185" x2="280" y2="185" stroke="#E8897A" stroke-width="2.5" />
+          <rect x="120" y="165" width="160" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="200" y="190" fill="#B05040" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">宿舍海報</text>
+          <line x1="490" y1="120" x2="326" y2="120" stroke="#E8897A" stroke-width="2.5" />
+          <rect x="166" y="100" width="160" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="246" y="125" fill="#B05040" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">校園大使</text>
+
+          <!-- ── Bone 2 (lower): 社群推廣 ── -->
+          <line x1="750" y1="330" x2="940" y2="575" stroke="#E8897A" stroke-width="4" />
+          <rect x="850" y="562" width="196" height="52" rx="10" fill="#E8897A" />
+          <text x="948" y="594" fill="#fff" font-size="27" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">社群推廣</text>
+          <!-- sub-branches go LEFT -->
+          <line x1="800" y1="412" x2="640" y2="412" stroke="#E8897A" stroke-width="2.5" />
+          <rect x="476" y="392" width="164" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="558" y="417" fill="#B05040" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">Instagram廣告</text>
+          <line x1="858" y1="494" x2="698" y2="494" stroke="#E8897A" stroke-width="2.5" />
+          <rect x="534" y="474" width="164" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="616" y="499" fill="#B05040" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">KOL合作</text>
+          <line x1="912" y1="548" x2="752" y2="548" stroke="#E8897A" stroke-width="2.5" />
+          <rect x="590" y="528" width="162" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="671" y="553" fill="#B05040" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">短影音行銷</text>
+
+          <!-- ── Bone 3 (upper): 口碑轉傳 ── -->
+          <line x1="1100" y1="330" x2="1290" y2="85" stroke="#E8897A" stroke-width="4" />
+          <rect x="1200" y="42" width="196" height="52" rx="10" fill="#E8897A" />
+          <text x="1298" y="74" fill="#fff" font-size="27" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">口碑轉傳</text>
+          <!-- sub-branches go LEFT -->
+          <line x1="1152" y1="249" x2="992" y2="249" stroke="#E8897A" stroke-width="2.5" />
+          <rect x="828" y="229" width="164" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="910" y="254" fill="#B05040" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">以租推租制度</text>
+          <line x1="1200" y1="185" x2="1036" y2="185" stroke="#E8897A" stroke-width="2.5" />
+          <rect x="870" y="165" width="166" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="953" y="190" fill="#B05040" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">激勵評論活動</text>
+          <line x1="1250" y1="120" x2="1086" y2="120" stroke="#E8897A" stroke-width="2.5" />
+          <rect x="922" y="100" width="164" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="1004" y="125" fill="#B05040" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">好友邀請碼</text>
+        </svg>
+      </div>
+
+      <div class="nav-bar">
+        <span class="nav-item">創業動機</span><span class="nav-item">產品概念</span><span class="nav-item">產品週期</span><span
+          class="nav-item active">特性要因</span><span class="nav-item">五力分析</span><span class="nav-item">SWOT</span><span
+          class="nav-item">報告結論</span><span class="nav-item">參考資料</span>
+        <span class="nav-page">4b</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+  SLIDE 5c: 平台開發 ZOOM
+══════════════════════════════════════ -->
+    <section data-label="05c 平台開發 ZOOM">
+      <div class="blob-tl" style="opacity:0.2;background:var(--teal-pale);"></div>
+
+      <div class="content" style="left:60px;width:1800px;top:80px;">
+        <div class="slide-title" style="font-size:52px;">平台開發　<span
+            style="font-size:34px;color:var(--teal-mid);font-family:Arial,sans-serif;">核心功能展開</span></div>
+        <div class="slide-title-line" style="background:var(--teal-mid);margin-bottom:16px;"></div>
+
+        <svg viewBox="0 0 1700 660" width="1700" height="660" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="30,330 85,295 85,365" fill="#2D7D6F" opacity="0.8" />
+          <polygon points="85,308 118,330 85,352" fill="#4AA898" opacity="0.8" />
+          <line x1="118" y1="330" x2="1530" y2="330" stroke="#1C5C50" stroke-width="6" />
+          <circle cx="1615" cy="330" r="75" fill="#4AA898" />
+          <text x="1615" y="320" fill="#fff" font-size="26" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">平台</text>
+          <text x="1615" y="348" fill="#FFF3C4" font-size="26" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">開發</text>
+
+          <!-- Bone 1 (upper): 核心技術 -->
+          <line x1="340" y1="330" x2="530" y2="85" stroke="#4AA898" stroke-width="4" />
+          <rect x="440" y="42" width="196" height="52" rx="10" fill="#4AA898" />
+          <text x="538" y="74" fill="#fff" font-size="27" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">核心技術</text>
+          <line x1="392" y1="249" x2="236" y2="249" stroke="#4AA898" stroke-width="2.5" />
+          <rect x="76" y="229" width="160" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="156" y="254" fill="#1C5C50" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">AI合約辨識</text>
+          <line x1="440" y1="185" x2="280" y2="185" stroke="#4AA898" stroke-width="2.5" />
+          <rect x="120" y="165" width="160" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="200" y="190" fill="#1C5C50" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">地理資訊系統</text>
+          <line x1="490" y1="120" x2="326" y2="120" stroke="#4AA898" stroke-width="2.5" />
+          <rect x="166" y="100" width="160" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="246" y="125" fill="#1C5C50" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">大數據匹配</text>
+
+          <!-- Bone 2 (lower): 使用者介面 -->
+          <line x1="750" y1="330" x2="940" y2="575" stroke="#4AA898" stroke-width="4" />
+          <rect x="850" y="562" width="196" height="52" rx="10" fill="#4AA898" />
+          <text x="948" y="594" fill="#fff" font-size="27" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">使用者介面</text>
+          <line x1="800" y1="412" x2="640" y2="412" stroke="#4AA898" stroke-width="2.5" />
+          <rect x="476" y="392" width="164" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="558" y="417" fill="#1C5C50" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">直覺化搜尋</text>
+          <line x1="858" y1="494" x2="698" y2="494" stroke="#4AA898" stroke-width="2.5" />
+          <rect x="534" y="474" width="164" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="616" y="499" fill="#1C5C50" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">行動端優化</text>
+          <line x1="912" y1="548" x2="752" y2="548" stroke="#4AA898" stroke-width="2.5" />
+          <rect x="590" y="528" width="162" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="671" y="553" fill="#1C5C50" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">線上聊聊系統</text>
+
+          <!-- Bone 3 (upper): 後台管理 -->
+          <line x1="1100" y1="330" x2="1290" y2="85" stroke="#4AA898" stroke-width="4" />
+          <rect x="1200" y="42" width="196" height="52" rx="10" fill="#4AA898" />
+          <text x="1298" y="74" fill="#fff" font-size="27" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">後台管理</text>
+          <line x1="1152" y1="249" x2="992" y2="249" stroke="#4AA898" stroke-width="2.5" />
+          <rect x="828" y="229" width="164" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="910" y="254" fill="#1C5C50" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">房源自動上架</text>
+          <line x1="1200" y1="185" x2="1036" y2="185" stroke="#4AA898" stroke-width="2.5" />
+          <rect x="870" y="165" width="166" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="953" y="190" fill="#1C5C50" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">檢舉處理系統</text>
+          <line x1="1250" y1="120" x2="1086" y2="120" stroke="#4AA898" stroke-width="2.5" />
+          <rect x="922" y="100" width="164" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="1004" y="125" fill="#1C5C50" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">數據看板</text>
+        </svg>
+      </div>
+
+      <div class="nav-bar">
+        <span class="nav-item">創業動機</span><span class="nav-item">產品概念</span><span class="nav-item">產品週期</span><span
+          class="nav-item active">特性要因</span><span class="nav-item">五力分析</span><span class="nav-item">SWOT</span><span
+          class="nav-item">報告結論</span><span class="nav-item">參考資料</span>
+        <span class="nav-page">4c</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+  SLIDE 5d: 信任機制 ZOOM
+══════════════════════════════════════ -->
+    <section data-label="05d 信任機制 ZOOM">
+      <div class="blob-tl" style="opacity:0.2;"></div>
+
+      <div class="content" style="left:60px;width:1800px;top:80px;">
+        <div class="slide-title" style="font-size:52px;">信任機制　<span
+            style="font-size:34px;color:var(--coral);font-family:Arial,sans-serif;">安全機制展開</span></div>
+        <div class="slide-title-line" style="background:var(--coral);margin-bottom:16px;"></div>
+
+        <svg viewBox="0 0 1700 660" width="1700" height="660" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="30,330 85,295 85,365" fill="#2D7D6F" opacity="0.8" />
+          <polygon points="85,308 118,330 85,352" fill="#E8897A" opacity="0.8" />
+          <line x1="118" y1="330" x2="1530" y2="330" stroke="#1C5C50" stroke-width="6" />
+          <circle cx="1615" cy="330" r="75" fill="#E8897A" />
+          <text x="1615" y="320" fill="#fff" font-size="26" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">信任</text>
+          <text x="1615" y="348" fill="#FFF3C4" font-size="26" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">機制</text>
+
+          <!-- Bone 1 (upper): 驗證系統 -->
+          <line x1="340" y1="330" x2="530" y2="85" stroke="#E8897A" stroke-width="4" />
+          <rect x="440" y="42" width="196" height="52" rx="10" fill="#E8897A" />
+          <text x="538" y="74" fill="#fff" font-size="27" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">驗證系統</text>
+          <line x1="392" y1="249" x2="236" y2="249" stroke="#E8897A" stroke-width="2.5" />
+          <rect x="76" y="229" width="160" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="156" y="254" fill="#B05040" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">房東實名制</text>
+          <line x1="440" y1="185" x2="280" y2="185" stroke="#E8897A" stroke-width="2.5" />
+          <rect x="120" y="165" width="160" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="200" y="190" fill="#B05040" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">建物謄本比對</text>
+          <line x1="490" y1="120" x2="326" y2="120" stroke="#E8897A" stroke-width="2.5" />
+          <rect x="166" y="100" width="160" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="246" y="125" fill="#B05040" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">手機認證</text>
+
+          <!-- Bone 2 (lower): 評價體系 -->
+          <line x1="750" y1="330" x2="940" y2="575" stroke="#E8897A" stroke-width="4" />
+          <rect x="850" y="562" width="196" height="52" rx="10" fill="#E8897A" />
+          <text x="948" y="594" fill="#fff" font-size="27" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">評價體系</text>
+          <line x1="800" y1="412" x2="640" y2="412" stroke="#E8897A" stroke-width="2.5" />
+          <rect x="476" y="392" width="164" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="558" y="417" fill="#B05040" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">住客實測評論</text>
+          <line x1="858" y1="494" x2="698" y2="494" stroke="#E8897A" stroke-width="2.5" />
+          <rect x="534" y="474" width="164" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="616" y="499" fill="#B05040" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">房東反饋機制</text>
+          <line x1="912" y1="548" x2="752" y2="548" stroke="#E8897A" stroke-width="2.5" />
+          <rect x="590" y="528" width="162" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="671" y="553" fill="#B05040" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">爭議標記</text>
+
+          <!-- Bone 3 (upper): 保障措施 -->
+          <line x1="1100" y1="330" x2="1290" y2="85" stroke="#E8897A" stroke-width="4" />
+          <rect x="1200" y="42" width="196" height="52" rx="10" fill="#E8897A" />
+          <text x="1298" y="74" fill="#fff" font-size="27" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">保障措施</text>
+          <line x1="1152" y1="249" x2="992" y2="249" stroke="#E8897A" stroke-width="2.5" />
+          <rect x="828" y="229" width="164" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="910" y="254" fill="#B05040" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">法律諮詢窗口</text>
+          <line x1="1200" y1="185" x2="1036" y2="185" stroke="#E8897A" stroke-width="2.5" />
+          <rect x="870" y="165" width="166" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="953" y="190" fill="#B05040" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">租屋保險轉介</text>
+          <line x1="1250" y1="120" x2="1086" y2="120" stroke="#E8897A" stroke-width="2.5" />
+          <rect x="922" y="100" width="164" height="40" rx="7" fill="#F9E5E1" stroke="#E8897A" stroke-width="1.5" />
+          <text x="1004" y="125" fill="#B05040" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">不實賠付機制</text>
+        </svg>
+      </div>
+
+      <div class="nav-bar">
+        <span class="nav-item">創業動機</span><span class="nav-item">產品概念</span><span class="nav-item">產品週期</span><span
+          class="nav-item active">特性要因</span><span class="nav-item">五力分析</span><span class="nav-item">SWOT</span><span
+          class="nav-item">報告結論</span><span class="nav-item">參考資料</span>
+        <span class="nav-page">4d</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+  SLIDE 5e: 營運管理 ZOOM
+══════════════════════════════════════ -->
+    <section data-label="05e 營運管理 ZOOM">
+      <div class="blob-tl" style="opacity:0.2;background:var(--teal-pale);"></div>
+
+      <div class="content" style="left:60px;width:1800px;top:80px;">
+        <div class="slide-title" style="font-size:52px;">營運管理　<span
+            style="font-size:34px;color:var(--teal-mid);font-family:Arial,sans-serif;">後勤體系展開</span></div>
+        <div class="slide-title-line" style="background:var(--teal-mid);margin-bottom:16px;"></div>
+
+        <svg viewBox="0 0 1700 660" width="1700" height="660" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="30,330 85,295 85,365" fill="#2D7D6F" opacity="0.8" />
+          <polygon points="85,308 118,330 85,352" fill="#4AA898" opacity="0.8" />
+          <line x1="118" y1="330" x2="1530" y2="330" stroke="#1C5C50" stroke-width="6" />
+          <circle cx="1615" cy="330" r="75" fill="#4AA898" />
+          <text x="1615" y="320" fill="#fff" font-size="26" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">營運</text>
+          <text x="1615" y="348" fill="#FFF3C4" font-size="26" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">管理</text>
+
+          <!-- Bone 1 (upper): 客服支援 -->
+          <line x1="340" y1="330" x2="530" y2="85" stroke="#4AA898" stroke-width="4" />
+          <rect x="440" y="42" width="196" height="52" rx="10" fill="#4AA898" />
+          <text x="538" y="74" fill="#fff" font-size="27" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">客服支援</text>
+          <line x1="392" y1="249" x2="236" y2="249" stroke="#4AA898" stroke-width="2.5" />
+          <rect x="76" y="229" width="160" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="156" y="254" fill="#1C5C50" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">AI聊天機器人</text>
+          <line x1="440" y1="185" x2="280" y2="185" stroke="#4AA898" stroke-width="2.5" />
+          <rect x="120" y="165" width="160" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="200" y="190" fill="#1C5C50" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">工單管理系統</text>
+          <line x1="490" y1="120" x2="326" y2="120" stroke="#4AA898" stroke-width="2.5" />
+          <rect x="166" y="100" width="160" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="246" y="125" fill="#1C5C50" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">滿意度追蹤</text>
+
+          <!-- Bone 2 (lower): 房源審核 -->
+          <line x1="750" y1="330" x2="940" y2="575" stroke="#4AA898" stroke-width="4" />
+          <rect x="850" y="562" width="196" height="52" rx="10" fill="#4AA898" />
+          <text x="948" y="594" fill="#fff" font-size="27" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">房源審核</text>
+          <line x1="800" y1="412" x2="640" y2="412" stroke="#4AA898" stroke-width="2.5" />
+          <rect x="476" y="392" width="164" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="558" y="417" fill="#1C5C50" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">資格初審流程</text>
+          <line x1="858" y1="494" x2="698" y2="494" stroke="#4AA898" stroke-width="2.5" />
+          <rect x="534" y="474" width="164" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="616" y="499" fill="#1C5C50" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">實地查驗機制</text>
+          <line x1="912" y1="548" x2="752" y2="548" stroke="#4AA898" stroke-width="2.5" />
+          <rect x="590" y="528" width="162" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="671" y="553" fill="#1C5C50" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">定期複查更新</text>
+
+          <!-- Bone 3 (upper): 法規遵循 -->
+          <line x1="1100" y1="330" x2="1290" y2="85" stroke="#4AA898" stroke-width="4" />
+          <rect x="1200" y="42" width="196" height="52" rx="10" fill="#4AA898" />
+          <text x="1298" y="74" fill="#fff" font-size="27" text-anchor="middle" font-weight="bold"
+            font-family="Arial Black,sans-serif">法規遵循</text>
+          <line x1="1152" y1="249" x2="992" y2="249" stroke="#4AA898" stroke-width="2.5" />
+          <rect x="828" y="229" width="164" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="910" y="254" fill="#1C5C50" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">個資法遵循</text>
+          <line x1="1200" y1="185" x2="1036" y2="185" stroke="#4AA898" stroke-width="2.5" />
+          <rect x="870" y="165" width="166" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="953" y="190" fill="#1C5C50" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">租賃法規更新</text>
+          <line x1="1250" y1="120" x2="1086" y2="120" stroke="#4AA898" stroke-width="2.5" />
+          <rect x="922" y="100" width="164" height="40" rx="7" fill="#D6EDE8" stroke="#4AA898" stroke-width="1.5" />
+          <text x="1004" y="125" fill="#1C5C50" font-size="22" text-anchor="middle" font-weight="bold"
+            font-family="Arial,sans-serif">隱私政策維護</text>
+        </svg>
+      </div>
+
+      <div class="nav-bar">
+        <span class="nav-item">創業動機</span><span class="nav-item">產品概念</span><span class="nav-item">產品週期</span><span
+          class="nav-item active">特性要因</span><span class="nav-item">五力分析</span><span class="nav-item">SWOT</span><span
+          class="nav-item">報告結論</span><span class="nav-item">參考資料</span>
+        <span class="nav-page">4e</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+  SLIDE 6: 五力分析 (1/2)
+══════════════════════════════════════ -->
+    <section data-label="06 五力分析 1/2">
+      <div class="blob-tl"></div>
+      <div class="blob-tl2"></div>
+
+      <div class="content">
+        <div class="slide-title">五力分析 <span style="font-size:42px;color:var(--ink-lite);">Porter's Five Forces</span>
+        </div>
+        <div class="slide-title-line"></div>
+
+        <div style="display:flex;gap:48px;align-items:center;">
+          <!-- Left text: all 5 forces -->
+          <div style="flex:1.4;display:flex;flex-direction:column;gap:14px;">
+            <div style="border-left:6px solid #D05F6E;padding:6px 0 6px 18px;">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
+                <div style="font-family:'Arial Black',sans-serif;font-size:24px;color:#D05F6E;">① 產業內競爭者</div>
+                <span
+                  style="background:#D05F6E;color:#fff;font-size:16px;font-weight:900;padding:2px 10px;border-radius:20px;font-family:Arial,sans-serif;">威脅：高</span>
+              </div>
+              <ul class="blist" style="padding-left:0;">
+                <li style="font-size:22px;line-height:1.45;">市場已有租屋網站、地產 APP 與仲介平台</li>
+                <li style="font-size:22px;line-height:1.45;">安全認證與雙向評價為<span
+                    style="color:#D05F6E;font-weight:900;">明顯差異化優勢</span></li>
+              </ul>
+            </div>
+            <div style="border-left:6px solid #4AAA7A;padding:6px 0 6px 18px;">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
+                <div style="font-family:'Arial Black',sans-serif;font-size:24px;color:#4AAA7A;">② 替代品威脅</div>
+                <span
+                  style="background:#4AAA7A;color:#fff;font-size:16px;font-weight:900;padding:2px 10px;border-radius:20px;font-family:Arial,sans-serif;">威脅：中</span>
+              </div>
+              <ul class="blist" style="padding-left:0;">
+                <li style="font-size:22px;line-height:1.45;">社群租屋群組免費、電子地圖自行評估</li>
+                <li style="font-size:22px;line-height:1.45;">缺乏安全驗證，<span
+                    style="color:#4AAA7A;font-weight:900;">核心痛點仍無法解決</span></li>
+              </ul>
+            </div>
+            <div style="border-left:6px solid #5B7FBF;padding:6px 0 6px 18px;">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
+                <div style="font-family:'Arial Black',sans-serif;font-size:24px;color:#5B7FBF;">③ 供應商議價力（房東）</div>
+                <span
+                  style="background:#5B7FBF;color:#fff;font-size:16px;font-weight:900;padding:2px 10px;border-radius:20px;font-family:Arial,sans-serif;">威脅：高</span>
+              </div>
+              <ul class="blist" style="padding-left:0;">
+                <li style="font-size:22px;line-height:1.45;">房東為核心房源供應方，初期議價力偏高</li>
+                <li style="font-size:22px;line-height:1.45;">提供<span
+                    style="color:#5B7FBF;font-weight:900;">優質後台工具</span>可降低其流失動機</li>
+              </ul>
+            </div>
+            <div style="border-left:6px solid #C8A020;padding:6px 0 6px 18px;">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
+                <div style="font-family:'Arial Black',sans-serif;font-size:24px;color:#C8A020;">④ 消費者議價力（租客）</div>
+                <span
+                  style="background:#C8A020;color:#fff;font-size:16px;font-weight:900;padding:2px 10px;border-radius:20px;font-family:Arial,sans-serif;">威脅：中</span>
+              </div>
+              <ul class="blist" style="padding-left:0;">
+                <li style="font-size:22px;line-height:1.45;">租客可在多平台比較，切換成本低</li>
+                <li style="font-size:22px;line-height:1.45;">安全評價黏著優勢可<span
+                    style="color:#C8A020;font-weight:900;">有效降低議價壓力</span></li>
+              </ul>
+            </div>
+            <div style="border-left:6px solid #9B6BB5;padding:6px 0 6px 18px;">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
+                <div style="font-family:'Arial Black',sans-serif;font-size:24px;color:#9B6BB5;">⑤ 潛在進入者威脅</div>
+                <span
+                  style="background:#9B6BB5;color:#fff;font-size:16px;font-weight:900;padding:2px 10px;border-radius:20px;font-family:Arial,sans-serif;">威脅：低</span>
+              </div>
+              <ul class="blist" style="padding-left:0;">
+                <li style="font-size:22px;line-height:1.45;">建立安全媒合平台需積累信任與大量房源</li>
+                <li style="font-size:22px;line-height:1.45;">口碑評價數據形成<span
+                    style="color:#9B6BB5;font-weight:900;">高門檻護城河</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Right: five forces diagram -->
+          <div style="flex:1;display:flex;align-items:center;justify-content:center;">
+            <svg width="580" height="580" viewBox="0 0 580 580" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <marker id="arr1" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                  <polygon points="0 0,10 3.5,0 7" fill="#4AAA7A" />
+                </marker>
+                <marker id="arr2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                  <polygon points="0 0,10 3.5,0 7" fill="#5B7FBF" />
+                </marker>
+                <marker id="arr3" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                  <polygon points="0 0,10 3.5,0 7" fill="#E5B84B" />
+                </marker>
+                <marker id="arr4" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                  <polygon points="0 0,10 3.5,0 7" fill="#9B6BB5" />
+                </marker>
+              </defs>
+              <line x1="290" y1="120" x2="290" y2="205" stroke="#4AAA7A" stroke-width="4" marker-end="url(#arr1)" />
+              <line x1="120" y1="290" x2="205" y2="290" stroke="#5B7FBF" stroke-width="4" marker-end="url(#arr2)" />
+              <line x1="460" y1="290" x2="375" y2="290" stroke="#E5B84B" stroke-width="4" marker-end="url(#arr3)" />
+              <line x1="290" y1="460" x2="290" y2="375" stroke="#9B6BB5" stroke-width="4" marker-end="url(#arr4)" />
+              <!-- Center -->
+              <circle cx="290" cy="290" r="82" fill="#D05F6E" />
+              <text x="290" y="281" fill="#fff" font-size="24" text-anchor="middle" font-weight="bold"
+                font-family="Arial Black, sans-serif">產業內</text>
+              <text x="290" y="308" fill="#fff" font-size="24" text-anchor="middle" font-weight="bold"
+                font-family="Arial Black, sans-serif">競爭者</text>
+              <!-- Top: 替代品威脅 -->
+              <circle cx="290" cy="68" r="62" fill="#4AAA7A" />
+              <text x="290" y="73" fill="#fff" font-size="22" text-anchor="middle" font-weight="bold"
+                font-family="Arial Black, sans-serif">替代品威脅</text>
+              <!-- Left: 供應商議價力 -->
+              <circle cx="68" cy="290" r="62" fill="#5B7FBF" />
+              <text x="68" y="283" fill="#fff" font-size="22" text-anchor="middle" font-weight="bold"
+                font-family="Arial Black, sans-serif">供應商</text>
+              <text x="68" y="308" fill="#fff" font-size="22" text-anchor="middle" font-weight="bold"
+                font-family="Arial Black, sans-serif">議價力</text>
+              <!-- Right: 消費者議價力 -->
+              <circle cx="512" cy="290" r="62" fill="#E5B84B" />
+              <text x="512" y="283" fill="#fff" font-size="22" text-anchor="middle" font-weight="bold"
+                font-family="Arial Black, sans-serif">消費者</text>
+              <text x="512" y="308" fill="#fff" font-size="22" text-anchor="middle" font-weight="bold"
+                font-family="Arial Black, sans-serif">議價力</text>
+              <!-- Bottom: 潛在進入者 -->
+              <circle cx="290" cy="512" r="62" fill="#9B6BB5" />
+              <text x="290" y="505" fill="#fff" font-size="22" text-anchor="middle" font-weight="bold"
+                font-family="Arial Black, sans-serif">潛在</text>
+              <text x="290" y="530" fill="#fff" font-size="22" text-anchor="middle" font-weight="bold"
+                font-family="Arial Black, sans-serif">進入者</text>
+              <!-- Highlight rings -->
+              <circle cx="290" cy="290" r="87" fill="none" stroke="#D05F6E" stroke-width="3" stroke-dasharray="8,4"
+                opacity="0.6" />
+              <circle cx="290" cy="68" r="66" fill="none" stroke="#4AAA7A" stroke-width="3" stroke-dasharray="8,4"
+                opacity="0.6" />
+              <circle cx="68" cy="290" r="66" fill="none" stroke="#5B7FBF" stroke-width="3" stroke-dasharray="8,4"
+                opacity="0.6" />
+              <circle cx="512" cy="290" r="66" fill="none" stroke="#E5B84B" stroke-width="3" stroke-dasharray="8,4"
+                opacity="0.6" />
+              <circle cx="290" cy="512" r="66" fill="none" stroke="#9B6BB5" stroke-width="3" stroke-dasharray="8,4"
+                opacity="0.6" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-bar">
+        <span class="nav-item">創業動機</span><span class="nav-item">產品概念</span><span class="nav-item">產品週期</span><span
+          class="nav-item">特性要因</span><span class="nav-item active">五力分析</span><span class="nav-item">SWOT</span><span
+          class="nav-item">報告結論</span><span class="nav-item">參考資料</span>
+        <span class="nav-page">5 / 8</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+  SLIDE 7: SWOT 分析
+══════════════════════════════════════ -->
+    <section data-label="07 SWOT 分析">
+      <div class="blob-tl"></div>
+      <div class="blob-tl2"></div>
+
+      <div class="content" style="top:88px;height:930px;">
+        <div class="slide-title">SWOT 分析</div>
+        <div class="slide-title-line" style="margin-bottom:24px;"></div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:20px;height:780px;">
+
+          <!-- S -->
+          <div
+            style="background:#fff;border:2.5px solid #E8897A;border-radius:14px;padding:24px 28px;position:relative;overflow:hidden;">
+            <div
+              style="position:absolute;right:-10px;bottom:-30px;font-size:180px;font-weight:900;color:#E8897A;opacity:0.08;line-height:1;font-family:'Arial Black',sans-serif;pointer-events:none;user-select:none;">
+              S</div>
+            <div style="font-family:'Arial Black',sans-serif;font-size:32px;color:#D05F6E;margin-bottom:6px;">
+              S　Strengths　優勢</div>
+            <div style="width:52px;height:4px;background:#E8897A;border-radius:2px;margin-bottom:16px;"></div>
+            <ul class="blist">
+              <li>安全認證打造差異化品牌</li>
+              <li>AI審約功能解決租屋痛點</li>
+              <li>深耕學生與首次租屋族群</li>
+            </ul>
+          </div>
+
+          <!-- W -->
+          <div
+            style="background:#fff;border:2.5px solid #4AA898;border-radius:14px;padding:24px 28px;position:relative;overflow:hidden;">
+            <div
+              style="position:absolute;right:-10px;bottom:-30px;font-size:180px;font-weight:900;color:#4AA898;opacity:0.08;line-height:1;font-family:'Arial Black',sans-serif;pointer-events:none;user-select:none;">
+              W</div>
+            <div style="font-family:'Arial Black',sans-serif;font-size:32px;color:#2D7D6F;margin-bottom:6px;">
+              W　Weaknesses　劣勢</div>
+            <div style="width:52px;height:4px;background:#4AA898;border-radius:2px;margin-bottom:16px;"></div>
+            <ul class="blist">
+              <li>品牌知名度初期偏低</li>
+              <li>初期可上架房源數量不足</li>
+              <li>房東信任建立需較長時間</li>
+            </ul>
+          </div>
+
+          <!-- O -->
+          <div
+            style="background:#fff;border:2.5px solid #A8D5CB;border-radius:14px;padding:24px 28px;position:relative;overflow:hidden;">
+            <div
+              style="position:absolute;right:-10px;bottom:-30px;font-size:180px;font-weight:900;color:#4AA898;opacity:0.08;line-height:1;font-family:'Arial Black',sans-serif;pointer-events:none;user-select:none;">
+              O</div>
+            <div style="font-family:'Arial Black',sans-serif;font-size:32px;color:#1C5C50;margin-bottom:6px;">
+              O　Opportunities　機會</div>
+            <div style="width:52px;height:4px;background:#A8D5CB;border-radius:2px;margin-bottom:16px;"></div>
+            <ul class="blist">
+              <li>居住正義意識持續抬頭</li>
+              <li>租賃專法推動租屋透明化</li>
+              <li>年輕人口移居都市需求穩定</li>
+            </ul>
+          </div>
+
+          <!-- T -->
+          <div
+            style="background:#fff;border:2.5px solid #F2C4BB;border-radius:14px;padding:24px 28px;position:relative;overflow:hidden;">
+            <div
+              style="position:absolute;right:-10px;bottom:-30px;font-size:180px;font-weight:900;color:#E8897A;opacity:0.08;line-height:1;font-family:'Arial Black',sans-serif;pointer-events:none;user-select:none;">
+              T</div>
+            <div style="font-family:'Arial Black',sans-serif;font-size:32px;color:#B05040;margin-bottom:6px;">
+              T　Threats　威脅</div>
+            <div style="width:52px;height:4px;background:#F2C4BB;border-radius:2px;margin-bottom:16px;"></div>
+            <ul class="blist">
+              <li>傳統平台加速數位化跟進</li>
+              <li>少子化衝擊長期租屋需求</li>
+              <li>個資安全疑慮影響用戶信任</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-bar">
+        <span class="nav-item">創業動機</span><span class="nav-item">產品概念</span><span class="nav-item">產品週期</span><span
+          class="nav-item">特性要因</span><span class="nav-item">五力分析</span><span class="nav-item active">SWOT</span><span
+          class="nav-item">報告結論</span><span class="nav-item">參考資料</span>
+        <span class="nav-page">6 / 8</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+  SLIDE 8: 報告結論
+══════════════════════════════════════ -->
+    <section data-label="08 報告結論">
+      <div class="blob-tl"></div>
+      <div class="blob-tl2"></div>
+
+      <div class="content">
+        <div class="slide-title">報告結論</div>
+        <div class="slide-title-line"></div>
+
+        <div style="display:flex;align-items:center;justify-content:center;height:calc(100% - 120px);margin-top:20px;">
+          <div style="display:inline-flex;flex-direction:column;gap:32px;align-items:stretch;">
+            <img src="結論圖.png" style="height:460px;width:auto;object-fit:contain;border-radius:16px;box-shadow:0 12px 48px rgba(0,0,0,0.15);display:block;" alt="結論標語" />
+            
+            <div style="background:var(--white);border:3px solid var(--teal-pale);border-radius:16px;padding:28px 32px;text-align:center;box-sizing:border-box;">
+              <div style="font-family:Arial,'Noto Sans TC',sans-serif;font-size:32px;font-weight:700;color:var(--ink-mid);line-height:1.6;">
+                「好窩，讓每一個租屋的人，<br>都能真正找到安心的家。」
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-bar">
+        <span class="nav-item">創業動機</span><span class="nav-item">產品概念</span><span class="nav-item">產品週期</span><span
+          class="nav-item">特性要因</span><span class="nav-item">五力分析</span><span class="nav-item">SWOT</span><span
+          class="nav-item active">報告結論</span><span class="nav-item">參考資料</span>
+        <span class="nav-page">7 / 8</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+  SLIDE 9: 參考資料
+══════════════════════════════════════ -->
+    <section data-label="09 參考資料">
+      <div class="blob-tl"></div>
+      <div class="blob-tl2"></div>
+
+      <div class="content">
+        <div class="slide-title">參考資料</div>
+        <div class="slide-title-line"></div>
+
+        <div style="display:flex;gap:40px;align-items:flex-start;">
+          <!-- Left Column -->
+          <div style="flex:1;">
+            <!-- Category 1 -->
+            <div style="margin-bottom:28px;">
+              <div style="font-family:'Arial Black',sans-serif;font-size:22px;color:var(--teal-dark);margin-bottom:12px;border-bottom:2px solid var(--teal-pale);padding-bottom:6px;">
+                1. 市場統計與痛點 (政府官方資料)</div>
+              <ul style="list-style:none;padding:0;margin:0;font-size:20px;font-family:Arial,'Noto Sans TC',sans-serif;line-height:1.5;">
+                <li style="margin-bottom:16px;">
+                  <span style="font-weight:700;color:var(--ink-mid);">內政部地政司 — 不動產交易實價查詢</span> <span style="color:var(--teal-dark);font-size:16px;">(lvr.land.moi.gov.tw)</span><br>
+                  <span style="color:var(--ink-lite);font-size:18px;">↳ <b>說明：</b>用於獲取最新的租金指數與各縣市租屋行情，支持市場規模論點。</span>
+                </li>
+                <li style="margin-bottom:16px;">
+                  <span style="font-weight:700;color:var(--ink-mid);">行政院消費者保護處 — 消費者保護年報</span> <span style="color:var(--teal-dark);font-size:16px;">(cpc.ey.gov.tw)</span><br>
+                  <span style="color:var(--ink-lite);font-size:18px;">↳ <b>說明：</b>此處可下載歷年申訴統計，特別是租賃住宅類別的糾紛件數趨勢。</span>
+                </li>
+              </ul>
+            </div>
+            
+            <!-- Category 2 -->
+            <div>
+              <div style="font-family:'Arial Black',sans-serif;font-size:22px;color:var(--teal-dark);margin-bottom:12px;border-bottom:2px solid var(--teal-pale);padding-bottom:6px;">
+                2. 法律合規性 (技術與營運背書)</div>
+              <ul style="list-style:none;padding:0;margin:0;font-size:20px;font-family:Arial,'Noto Sans TC',sans-serif;line-height:1.5;">
+                <li style="margin-bottom:16px;">
+                  <span style="font-weight:700;color:var(--ink-mid);">法務部全國法規資料庫 — 租賃住宅市場發展及管理條例</span> <span style="color:var(--teal-dark);font-size:16px;">(law.moj.gov.tw)</span><br>
+                  <span style="color:var(--ink-lite);font-size:18px;">↳ <b>說明：</b>這是「好窩」平台營運的法源基礎，特別是關於租賃契約審閱與實名驗證的規定。</span>
+                </li>
+                <li style="margin-bottom:16px;">
+                  <span style="font-weight:700;color:var(--ink-mid);">數位發展部 — 電子簽章法修正說明</span> <span style="color:var(--teal-dark);font-size:16px;">(moda.gov.tw)</span><br>
+                  <span style="color:var(--ink-lite);font-size:18px;">↳ <b>說明：</b>支持平台「數位合約」功能具備法律效力的核心佐證。</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div style="flex:1;">
+            <!-- Category 3 -->
+            <div style="margin-bottom:28px;">
+              <div style="font-family:'Arial Black',sans-serif;font-size:22px;color:var(--teal-dark);margin-bottom:12px;border-bottom:2px solid var(--teal-pale);padding-bottom:6px;">
+                3. 第三方觀察與社會痛點 (實務研究)</div>
+              <ul style="list-style:none;padding:0;margin:0;font-size:20px;font-family:Arial,'Noto Sans TC',sans-serif;line-height:1.5;">
+                <li style="margin-bottom:16px;">
+                  <span style="font-weight:700;color:var(--ink-mid);">崔媽媽基金會 — 租屋政策與糾紛諮詢分析</span> <span style="color:var(--teal-dark);font-size:16px;">(www.tmm.org.tw)</span><br>
+                  <span style="color:var(--ink-lite);font-size:18px;">↳ <b>說明：</b>該基金會是台灣租屋權益的指標性 NGO，其公布的糾紛樣態非常適合強化 SWOT 中的機會 (O)。</span>
+                </li>
+                <li style="margin-bottom:16px;">
+                  <span style="font-weight:700;color:var(--ink-mid);">OURs 專業者都市改革組織 — 居住正義議題研究</span> <span style="color:var(--teal-dark);font-size:16px;">(ours.org.tw)</span><br>
+                  <span style="color:var(--ink-lite);font-size:18px;">↳ <b>說明：</b>針對「黑市租屋」與「透明化」議題有深入探討，支持你創業動機中提到的透明化訴求。</span>
+                </li>
+              </ul>
+            </div>
+            
+            <!-- Category 4 -->
+            <div>
+              <div style="font-family:'Arial Black',sans-serif;font-size:22px;color:var(--teal-dark);margin-bottom:12px;border-bottom:2px solid var(--teal-pale);padding-bottom:6px;">
+                4. 經典理論與國際趨勢 (學術層次)</div>
+              <ul style="list-style:none;padding:0;margin:0;font-size:20px;font-family:Arial,'Noto Sans TC',sans-serif;line-height:1.5;">
+                <li style="margin-bottom:16px;">
+                  <span style="font-weight:700;color:var(--ink-mid);">Harvard Business Review — The Five Competitive Forces...</span> <span style="color:var(--teal-dark);font-size:16px;">(hbr.org)</span><br>
+                  <span style="color:var(--ink-lite);font-size:18px;">↳ <b>說明：</b>波特五力的理論來源，能提升學術嚴謹度。</span>
+                </li>
+                <li style="margin-bottom:16px;">
+                  <span style="font-weight:700;color:var(--ink-mid);">McKinsey &amp; Company — Generative AI in the real estate...</span> <span style="color:var(--teal-dark);font-size:16px;">(mckinsey.com)</span><br>
+                  <span style="color:var(--ink-lite);font-size:18px;">↳ <b>說明：</b>引用麥肯錫的研究來說明 AI 如何優化房地產匹配與合約自動化，支持「技術開發」章節。</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-bar">
+        <span class="nav-item">創業動機</span><span class="nav-item">產品概念</span><span class="nav-item">產品週期</span><span
+          class="nav-item">特性要因</span><span class="nav-item">五力分析</span><span class="nav-item">SWOT</span><span
+          class="nav-item">報告結論</span><span class="nav-item active">參考資料</span>
+        <span class="nav-page">8 / 8</span>
+      </div>
+    </section>
+
+  </deck-stage>
+</body>
+
+</html>
