@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>平時作業3 心得分享 - 113590451 李元睿</title>
+<style>
+  /* ─── 基本字型設定 ─── */
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'BiauKai', '標楷體', 'DFKai-SB', 'Noto Serif TC', serif;
+    font-size: 12pt;
+    line-height: 1.9;
+    color: #000;
+    background: #e0e0e0;
+  }
+
+  /* ─── A4 頁面模擬 ─── */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 10mm auto;
+    padding: 25mm 25mm 20mm 25mm;
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+    page-break-after: always;
+  }
+
+  /* ─── 英文與數字用 Times New Roman ─── */
+  .en, em, code, .en-num {
+    font-family: 'Times New Roman', Times, serif;
+  }
+
+  /* ─── 標題區塊 ─── */
+  .doc-header {
+    text-align: center;
+    margin-bottom: 10mm;
+    border-bottom: 2px solid #000;
+    padding-bottom: 6mm;
+  }
+
+  .doc-header h1 {
+    font-size: 14pt;
+    font-weight: bold;
+    line-height: 2;
+    letter-spacing: 0.05em;
+  }
+
+  .doc-header p {
+    font-size: 12pt;
+    line-height: 1.8;
+  }
+
+  /* ─── 主題標題 ─── */
+  .topic-title {
+    font-size: 14pt;
+    font-weight: bold;
+    margin: 8mm 0 4mm 0;
+    padding-left: 3mm;
+    border-left: 4px solid #333;
+    letter-spacing: 0.05em;
+  }
+
+  .section-title {
+    font-size: 13pt;
+    font-weight: bold;
+    margin: 5mm 0 3mm 0;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* ─── 段落 ─── */
+  p {
+    text-indent: 2em;
+    margin-bottom: 3mm;
+    text-align: justify;
+  }
+
+  p.no-indent {
+    text-indent: 0;
+  }
+
+  /* ─── 列表 ─── */
+  ul, ol {
+    margin-left: 4em;
+    margin-bottom: 3mm;
+  }
+
+  li {
+    margin-bottom: 1.5mm;
+  }
+
+  /* ─── 表格 ─── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 4mm 0;
+    font-size: 11pt;
+  }
+
+  th, td {
+    border: 1px solid #555;
+    padding: 2mm 3mm;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  th {
+    background-color: #ddd;
+    font-weight: bold;
+  }
+
+  td:first-child {
+    text-align: center;
+  }
+
+  /* ─── 圖片區塊 ─── */
+  figure {
+    text-align: center;
+    margin: 5mm auto;
+    max-width: 130mm;
+  }
+
+  figure img {
+    max-width: 100%;
+    height: auto;
+    max-height: 70mm;
+    border: 1px solid #ccc;
+  }
+
+  figure svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  figcaption {
+    font-size: 10pt;
+    color: #444;
+    margin-top: 2mm;
+    font-style: italic;
+    text-indent: 0;
+  }
+
+  /* ─── 總結框 ─── */
+  .summary-box {
+    border: 1px solid #888;
+    padding: 4mm 6mm;
+    margin: 4mm 0;
+    background: #f9f9f9;
+  }
+
+  .summary-box p {
+    text-indent: 2em;
+    margin-bottom: 2mm;
+  }
+
+  /* ─── 強調文字 ─── */
+  strong {
+    font-weight: bold;
+  }
+
+  /* ─── 分頁線 ─── */
+  .page-divider {
+    border: none;
+    border-top: 1px dashed #bbb;
+    margin: 6mm 0;
+  }
+
+  /* ─── 列印設定 ─── */
+  @media print {
+    body { background: #fff; }
+    .page {
+      margin: 0;
+      padding: 25mm 25mm 20mm 25mm;
+      box-shadow: none;
+      page-break-after: always;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════
+     頁 1：封面 / 標題 + 系統觀
+════════════════════════════════ -->
+<div class="page">
+
+  <!-- 文件標題 -->
+  <div class="doc-header">
+    <h1>國立臺北科技大學通識中心博雅核心<br>
+        <span class="en">114</span>學年度第<span class="en">2</span>學期　創業概論課程</h1>
+    <p>授課教師：許再安老師</p>
+    <p>平時作業<span class="en">3</span>：心得分享</p>
+    <p>學號：<span class="en">113590451</span>　姓名：李元睿　班級：資工二</p>
+  </div>
+
+  <!-- ── 主題一：系統觀 ── -->
+  <div class="topic-title">一、系統觀（<span class="en">Systems View</span>）</div>
+
+  <div class="section-title">（一）系統觀原理</div>
+
+  <p>「系統」（<span class="en">System</span>）的定義，是由相互作用的諸元件（<span class="en">Components</span>）為達成共同目標所形成的集合體。這一概念揭示了管理學中最根本的一個思想——整體大於部分之和（<span class="en">The whole is greater than the sum of its parts</span>）。以大學學程為例，學生、教師、課程設計、實驗設備、行政制度等各自構成不同的子系統（<span class="en">Subsystem</span>），這些子系統彼此依存、相互協調，共同達成「培育優秀人才」的目標。若只專注於某一元件的優化，例如只要求教師提升授課品質，卻忽略課程內容與市場需求的連結，往往仍難以達到人才培育的最終目的。</p>
+
+  <p>系統的另一個重要特性是「開放性」——任何有機的系統都無法脫離外部環境而孤立存在。企業組織作為一個系統，必須持續與市場趨勢、政府法規、技術革新、社會文化等外部環境進行資訊、資源與能量的交換。一旦外部環境發生劇烈變動（例如新冠疫情對全球供應鏈的衝擊），若組織內部缺乏足夠的韌性與適應機制，即便內部流程再精密，依然難以存活。</p>
+
+  <p>系統觀的核心意義，在於促使管理者從孤立解決個別問題的思維，轉變為以「整體性」與「連動性」診斷及應對問題，這是現代管理科學的重要基礎之一。</p>
+
+  <!-- 系統觀圖：inline SVG -->
+  <figure>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 160" width="480" height="155" font-family="'Times New Roman', serif" font-size="13">
+      <!-- 外部環境框 -->
+      <rect x="5" y="5" width="510" height="150" rx="10" fill="#f0f4ff" stroke="#4466aa" stroke-width="1.5" stroke-dasharray="6,3"/>
+      <text x="260" y="22" text-anchor="middle" fill="#4466aa" font-size="11">外部環境（External Environment）</text>
+      <!-- 輸入 -->
+      <rect x="30" y="55" width="90" height="55" rx="6" fill="#cce0ff" stroke="#336699" stroke-width="1.5"/>
+      <text x="75" y="80" text-anchor="middle" font-weight="bold">輸入</text>
+      <text x="75" y="97" text-anchor="middle" font-size="10">(Input)</text>
+      <!-- 箭頭1 -->
+      <line x1="120" y1="82" x2="175" y2="82" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <!-- 處理 -->
+      <rect x="175" y="55" width="110" height="55" rx="6" fill="#ffe0cc" stroke="#cc6633" stroke-width="1.5"/>
+      <text x="230" y="80" text-anchor="middle" font-weight="bold">處理過程</text>
+      <text x="230" y="97" text-anchor="middle" font-size="10">(Process)</text>
+      <!-- 箭頭2 -->
+      <line x1="285" y1="82" x2="345" y2="82" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <!-- 輸出 -->
+      <rect x="345" y="55" width="90" height="55" rx="6" fill="#ccffcc" stroke="#336633" stroke-width="1.5"/>
+      <text x="390" y="80" text-anchor="middle" font-weight="bold">輸出</text>
+      <text x="390" y="97" text-anchor="middle" font-size="10">(Output)</text>
+      <!-- 回饋箭頭 -->
+      <path d="M390 110 Q390 140 260 140 Q130 140 75 110" fill="none" stroke="#aa3366" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrowPink)"/>
+      <text x="260" y="152" text-anchor="middle" fill="#aa3366" font-size="10">回饋（Feedback）</text>
+      <!-- 箭頭 markers -->
+      <defs>
+        <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#333"/>
+        </marker>
+        <marker id="arrowPink" markerWidth="8" markerHeight="8" refX="2" refY="3" orient="auto">
+          <path d="M8,0 L8,6 L0,3 z" fill="#aa3366"/>
+        </marker>
+      </defs>
+    </svg>
+    <figcaption>圖1　系統的基本架構（輸入→處理→輸出→回饋）<br>
+    圖片來源：改繪自 Robbins &amp; Coulter, <em>Management</em>, 14th ed. (<span class="en">2021</span>)</figcaption>
+  </figure>
+
+  <div class="section-title">（二）系統觀運用技巧</div>
+
+  <p>在管理實務中，系統觀最大的價值在於幫助管理者跳脫「局部最優化」（<span class="en">Local Optimization</span>）的思維陷阱。所謂局部最優化，是指某一部門單獨提升效率，卻因未考慮對整體系統的影響，反而導致整體績效下降的現象。</p>
+
+  <p>以台灣半導體龍頭台積電（<span class="en">TSMC</span>）為例，其成功的關鍵之一便是對整體供應鏈系統的精密掌控。台積電不僅管理內部的晶圓製造流程，還需協調設備商（如艾司摩爾 <span class="en">ASML</span>）、原材料供應商、封裝測試廠商，乃至客戶端的設計規格需求。任何一個環節出現問題——例如關鍵設備零件供應中斷——都可能導致整條生產線的停擺，充分說明了系統觀在大型組織管理中的核心地位。</p>
+
+  <p>具體的系統觀運用技巧可整理如下：</p>
+
+  <ol>
+    <li><strong>繪製系統地圖（<span class="en">System Map</span>）</strong>：將組織內各子系統以圖示呈現，標示各元件的輸入（<span class="en">Input</span>）、處理（<span class="en">Process</span>）、輸出（<span class="en">Output</span>）及回饋（<span class="en">Feedback</span>）關係，讓管理者一眼看清資源與資訊的流向。</li>
+    <li><strong>辨識關鍵瓶頸</strong>：在系統地圖中找出限制整體產出的瓶頸節點（<span class="en">Bottleneck</span>），集中資源優先改善，而非將注意力平均分散至所有環節。</li>
+    <li><strong>重視回饋迴圈（<span class="en">Feedback Loop</span>）</strong>：回饋機制是維持系統平衡與持續改善的核心。顧客服務部門的投訴資訊若能即時回饋至產品研發部門，便能加快優化速度，形成正向循環。</li>
+    <li><strong>打破穀倉效應（<span class="en">Silo Effect</span>）</strong>：推動跨部門資訊共享，避免各自為政造成資源浪費。</li>
+  </ol>
+
+  <p>系統觀的核心精髓，在於培養「整體性思維」——每一個管理決策都必須考量其對整個系統的連鎖影響，而不僅僅是解決眼前的局部問題。</p>
+
+  <div class="section-title">（三）系統觀總結</div>
+  <div class="summary-box">
+    <p>學習系統觀對我而言最深刻的啟發，是它改變了看待問題的「視角解析度」。過去我習慣將問題拆解為獨立的小問題逐一解決，卻常常陷入「按下葫蘆浮起瓢」的困境。系統觀提醒我，任何組織或流程都是由相互連動的元件構成，改變其中一個元件必然會對其他元件產生連鎖效應。</p>
+    <p>作為資工系學生，系統思維對我格外有共鳴——它與軟體架構設計中強調模組化（<span class="en">Modularization</span>）、介面清晰、避免過度耦合（<span class="en">Tight Coupling</span>）的原則如出一轍。未來無論創業或就業，「先建立整體系統觀，再聚焦關鍵節點」將是我解決複雜問題的第一原則。</p>
+  </div>
+
+</div><!-- end page 1 -->
+
+
+<!-- ════════════════════════════════
+     頁 2：產品生命週期
+════════════════════════════════ -->
+<div class="page">
+
+  <div class="topic-title">二、產品生命週期（<span class="en">Product Life Cycle, PLC</span>）</div>
+
+  <div class="section-title">（一）產品生命週期原理</div>
+
+  <p>產品生命週期（<span class="en">Product Life Cycle, PLC</span>）的概念，由美國哈佛商學院學者 <span class="en">Theodore Levitt</span> 於 <span class="en">1965</span> 年在《哈佛商業評論》（<span class="en">Harvard Business Review</span>）中正式提出。其核心論點是：所有產品在市場上的表現，都會歷經類似生物生命的軌跡，依序經過「萌芽期（<span class="en">Development</span>）→ 導入期（<span class="en">Introduction</span>）→ 成長期（<span class="en">Growth</span>）→ 飽和期（<span class="en">Maturity</span>）→ 衰退期（<span class="en">Decline</span>）」五個階段，且每個階段在銷售量、利潤水準、競爭態勢及行銷策略上均有明顯差異。</p>
+
+  <p><strong>萌芽期</strong>：產品尚在研發階段，未正式上市，需大量研發投入但無銷售收入，企業承擔最高風險。<strong>導入期</strong>：產品進入市場，銷售量緩慢成長，因行銷與生產成本高昂，多數企業仍處虧損。<strong>成長期</strong>：銷售量快速提升，競爭者陸續進入市場，企業開始獲利。<strong>飽和期</strong>：市場趨於飽和，銷售成長趨緩並達高峰，競爭最激烈，利潤受壓縮。<strong>衰退期</strong>：銷售量持續下滑，企業須考慮轉型、縮減或退出。</p>
+
+  <p>不同產品的生命週期曲線型態各異：「低-寬型」曲線意指銷售高峰較低但持續時間長（如傳統食品）；「高-窄型」則代表短暫爆紅後迅速衰退（如流行玩具、網路迷因商品）。</p>
+
+  <!-- 產品生命週期圖 -->
+  <figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/70/Product_life_cycle_(Basic)_NT.PNG"
+         alt="產品生命週期曲線圖"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+    <div style="display:none; border:1px solid #ccc; padding:8mm; text-align:center; background:#f5f5f5; font-size:10pt; color:#666;">
+      ［產品生命週期曲線圖：橫軸為時間，縱軸為銷售量與利潤，依序呈現導入期、成長期、飽和期、衰退期的S型曲線變化］
+    </div>
+    <figcaption>圖<span class="en">2</span>　產品生命週期曲線（<span class="en">Product Life Cycle Curve</span>）<br>
+    圖片來源：<span class="en">Wikimedia Commons, <em>Product life cycle (Basic) NT.PNG</em>, CC BY-SA 3.0</span></figcaption>
+  </figure>
+
+  <div class="section-title">（二）產品生命週期運用技巧</div>
+
+  <p>管理者的核心任務，是根據產品所處的生命週期階段，動態調整行銷策略組合（<span class="en">4P：Product、Price、Place、Promotion</span>）。下表整理了各階段的策略對應方向：</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>階段</th>
+        <th>產品策略</th>
+        <th>定價策略</th>
+        <th>通路策略</th>
+        <th>推廣策略</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>導入期</strong></td>
+        <td>強調核心功能</td>
+        <td>撇脂或滲透定價</td>
+        <td>選擇性通路</td>
+        <td>密集廣告建知名度</td>
+      </tr>
+      <tr>
+        <td><strong>成長期</strong></td>
+        <td>擴充產品線</td>
+        <td>逐步調降</td>
+        <td>廣泛拓展通路</td>
+        <td>強調品牌差異化</td>
+      </tr>
+      <tr>
+        <td><strong>飽和期</strong></td>
+        <td>品牌延伸與改良</td>
+        <td>競爭定價</td>
+        <td>強化通路關係</td>
+        <td>提升顧客忠誠度</td>
+      </tr>
+      <tr>
+        <td><strong>衰退期</strong></td>
+        <td>縮減產品線</td>
+        <td>折扣促銷</td>
+        <td>縮減通路</td>
+        <td>選擇性維繫核心客群</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>以台灣「手搖飲」產業為例，可以清晰對應產品生命週期的每個階段：<span class="en">1990</span>年代珍珠奶茶從台中春水堂發跡，屬於萌芽與導入期——市場對這種新式飲品充滿好奇，業者需大力推廣口碑。<span class="en">2000</span>年代初期手搖飲進入成長期，各大連鎖品牌（如<span class="en">50</span>嵐、<span class="en">CoCo</span>都可）迅速展店，市場規模快速擴張。<span class="en">2010</span>至<span class="en">2020</span>年代則進入飽和期，台灣街頭幾步就有一家飲料店，競爭激烈，業者被迫以差異化（無糖健康選項、特色茶底、聯名款）和品牌忠誠計畫維持競爭力。</p>
+
+  <p>產品生命週期工具的核心運用技巧，在於讓企業提前預判下一階段的到來，而非被動回應。例如，在飽和期利潤仍豐時，提前布局下一代產品或開拓新市場（如東南亞）的企業，才能在衰退期到來前完成轉型。企業還可透過「產品再生（<span class="en">Renewal</span>）」策略延長飽和期，例如推出限定口味、聯名款或功能升級版本，在既有顧客群中重新點燃消費熱情。</p>
+
+  <div class="section-title">（三）產品生命週期總結</div>
+  <div class="summary-box">
+    <p>學習產品生命週期，讓我對「時間」在策略決策中的重要性有了更深的體會。許多企業失敗，並非因為產品不好，而是因為在錯誤的時間點採取了錯誤的策略——例如在衰退期仍持續加碼行銷投資，或在成長期過於保守而錯失市場先機。</p>
+    <p>對我個人而言，這個工具的啟示是：無論是創業還是從事產品開發，都必須時刻問自己「這個產品現在處於哪個階段？」，以此作為資源配置決策的基本依據。未雨綢繆、提前布局，才是善用產品生命週期理論的真正精髓。</p>
+  </div>
+
+</div><!-- end page 2 -->
+
+
+<!-- ════════════════════════════════
+     頁 3：魚骨圖
+════════════════════════════════ -->
+<div class="page">
+
+  <div class="topic-title">三、特性要因分析圖（魚骨圖）<br>
+  <span style="font-size:12pt; font-weight:normal;">（<span class="en">Cause-and-Effect Diagram / Fishbone Diagram / Ishikawa Diagram</span>）</span></div>
+
+  <div class="section-title">（一）特性要因分析圖原理</div>
+
+  <p>特性要因分析圖（<span class="en">Cause-and-Effect Diagram</span>），又稱魚骨圖（<span class="en">Fishbone Diagram</span>）或石川圖（<span class="en">Ishikawa Diagram</span>），由日本品質管理大師石川馨（<span class="en">Kaoru Ishikawa</span>）於 <span class="en">1968</span> 年發明，是品質管理領域最廣泛使用的問題分析工具之一。</p>
+
+  <p>其基本架構呈現魚骨形狀：「魚頭」代表欲分析的「特性」（結果問題，如「不良品率偏高」）；「主幹」代表因果關係的主軸；各條「大骨」（主要原因，<span class="en">Main Cause</span>）從主幹向兩側延伸；各條「中骨」（中要因，<span class="en">Sub-Cause</span>）從大骨分支；各條「小骨」（小要因，<span class="en">Minor Cause</span>）則為更細層的原因。整體架構形成一種「由果溯因、層層深挖」的分析邏輯。</p>
+
+  <p>在實務中，主要原因通常以「<span class="en">5M1E</span>」框架分類：<strong>人（<span class="en">Man</span>）</strong>——人員技能與習慣；<strong>機（<span class="en">Machine</span>）</strong>——設備精度與維護；<strong>料（<span class="en">Material</span>）</strong>——原料品質與規格；<strong>法（<span class="en">Method</span>）</strong>——作業流程與標準；<strong>測（<span class="en">Measurement</span>）</strong>——檢測方式準確性；<strong>環（<span class="en">Environment</span>）</strong>——溫濕度與場地條件。</p>
+
+  <!-- 魚骨圖圖片 -->
+  <figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Ishikawa_Fishbone_Diagram.svg/700px-Ishikawa_Fishbone_Diagram.svg.png"
+         alt="魚骨圖（特性要因分析圖）"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+    <div style="display:none; border:1px solid #ccc; padding:8mm; text-align:center; background:#f5f5f5; font-size:10pt; color:#666;">
+      ［魚骨圖示意：左側為各主要原因（大骨），指向右側魚頭（特性/問題），各大骨再分支出中要因與小要因，形成魚骨形結構］
+    </div>
+    <figcaption>圖<span class="en">3</span>　特性要因分析圖（魚骨圖）示例<br>
+    圖片來源：<span class="en">Wikimedia Commons, <em>Ishikawa Fishbone Diagram.svg</em>, CC BY-SA 3.0</span></figcaption>
+  </figure>
+
+  <div class="section-title">（二）特性要因分析圖運用技巧</div>
+
+  <p>魚骨圖的實際應用流程可分為五個步驟：</p>
+
+  <p><strong>步驟一、精確定義「特性」（問題）</strong>：越具體越有效。例如不要寫「品質差」，而應寫「<span class="en">A</span>產品當月不良率達 <span class="en">8%</span>，超出目標值 <span class="en">2%</span>」。</p>
+
+  <p><strong>步驟二、召集跨職能團隊進行腦力激盪</strong>：魚骨圖的核心價值在於集思廣益。應邀請生產、品管、設備、採購、工程等不同部門人員，從各自專業視角找出可能原因。</p>
+
+  <p><strong>步驟三、依 <span class="en">5M1E</span> 框架分類填入原因</strong>：先填入主要原因（大骨），再逐層深入填入中要因（中骨）和小要因（小骨）。</p>
+
+  <p><strong>步驟四、以「<span class="en">5 Whys</span>」追問根本原因</strong>：針對每條小要因，反覆問「為什麼會發生這個問題？」至少五次，直到找出可以採取行動的根本原因。</p>
+
+  <p><strong>步驟五、確認主因並制訂改善對策</strong>：搭配帕累托圖（<span class="en">Pareto Chart</span>）確認哪些原因佔比最高，優先針對主因制訂具體改善行動。</p>
+
+  <p>以台灣電子製造業「電路板焊接不良率偏高」問題為例，品管圈（<span class="en">QCC</span>）運用魚骨圖分析後，找出以下主要原因：</p>
+  <ul>
+    <li><strong>人員</strong>：新進操作員上線前培訓時間不足（小要因：操作手冊設計複雜難懂）</li>
+    <li><strong>機器</strong>：焊接爐溫度控制感測器老化（小要因：保養週期未落實執行）</li>
+    <li><strong>材料</strong>：錫膏存放環境溫度不穩定（小要因：倉儲空調設備故障）</li>
+    <li><strong>方法</strong>：回流焊溫度曲線設定未依新材料規格即時更新</li>
+  </ul>
+  <p>最終確認「溫度曲線設定未更新」為最主要根本原因，制訂標準化更新流程後，成功將不良率降至目標值以下。</p>
+
+  <div class="section-title">（三）特性要因分析圖總結</div>
+  <div class="summary-box">
+    <p>魚骨圖帶給我最重要的啟示，是「不要在沒有分析的情況下急著解決問題」。許多人面對問題時，第一反應是找一個看起來合理的原因立刻採取行動，但這往往只是治標不治本。魚骨圖強迫我們在行動之前先進行系統性的原因盤點，確保不遺漏任何可能因素。</p>
+    <p>此外，魚骨圖也是絕佳的「跨部門溝通工具」——它把複雜的問題可視化，讓不同背景的人能在同一框架下進行有結構的討論，大幅降低溝通成本。這種思維方式，對我未來在軟體開發中的除錯（<span class="en">Debugging</span>）與系統設計同樣適用。</p>
+  </div>
+
+</div><!-- end page 3 -->
+
+
+<!-- ════════════════════════════════
+     頁 4：五力分析
+════════════════════════════════ -->
+<div class="page">
+
+  <div class="topic-title">四、五力分析（<span class="en">Porter's Five Forces</span>）</div>
+
+  <div class="section-title">（一）五力分析原理</div>
+
+  <p>五力分析（<span class="en">Porter's Five Forces</span>）是由哈佛商學院教授麥可·波特（<span class="en">Michael E. Porter</span>）於 <span class="en">1979</span> 年在《哈佛商業評論》中提出的產業競爭分析架構。波特認為，一個產業的長期獲利能力，取決於五種競爭力量的相互消長，這五種力量共同決定產業的「結構」與「吸引力」。</p>
+
+  <p>五力的內容如下：</p>
+  <ol>
+    <li><strong>同業競爭者（<span class="en">Competitive Rivalry</span>）</strong>：現有競爭者之間的對抗激烈程度，受競爭者數量、市場成長率、固定成本比例及產品差異化程度影響。</li>
+    <li><strong>潛在進入者（<span class="en">Threat of New Entrants</span>）</strong>：新競爭者進入市場的威脅程度，受進入障礙（規模經濟、品牌忠誠度、政府法規、專利）高低影響。</li>
+    <li><strong>替代品（<span class="en">Threat of Substitutes</span>）</strong>：其他可滿足相同需求的替代產品或服務，對現有產業廠商的威脅程度。</li>
+    <li><strong>供應商議價力（<span class="en">Bargaining Power of Suppliers</span>）</strong>：原料、零組件或服務供應商對產業廠商施加的議價能力，受供應商集中度與替代性影響。</li>
+    <li><strong>購買者議價力（<span class="en">Bargaining Power of Buyers</span>）</strong>：顧客對廠商的議價能力，受購買集中度、購買量大小、轉換成本等因素影響。</li>
+  </ol>
+
+  <p>五力分析的目的，是幫助企業理解所在產業的競爭態勢，進而找到能夠建立競爭優勢的市場定位與進入點（<span class="en">Entry Point</span>）。</p>
+
+  <!-- 五力分析圖 -->
+  <figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Porters_five_forces.PNG"
+         alt="波特五力分析圖"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+    <div style="display:none; border:1px solid #ccc; padding:8mm; text-align:center; background:#f5f5f5; font-size:10pt; color:#666;">
+      ［五力分析架構圖：中央為「同業競爭者」，上方為「潛在進入者」，下方為「替代品」，左方為「供應商議價力」，右方為「購買者議價力」，五力以箭頭指向中央，共同決定產業競爭強度］
+    </div>
+    <figcaption>圖<span class="en">4</span>　波特五力分析架構（<span class="en">Porter's Five Forces Framework</span>）<br>
+    圖片來源：<span class="en">Wikimedia Commons, <em>Porters five forces.PNG</em>, Public Domain</span></figcaption>
+  </figure>
+
+  <div class="section-title">（二）五力分析運用技巧</div>
+
+  <p>五力分析的實際應用，需針對每一項力量進行「強弱程度評估」，然後綜合判斷產業整體競爭強度，據此制訂進入策略或差異化策略。</p>
+
+  <p>以台灣電子代工產業（以鴻海／富士康為代表）為例進行五力評估：</p>
+
+  <ul>
+    <li><strong>同業競爭（高）</strong>：鴻海面臨和碩、緯創等台灣同業激烈競爭，加上中國大陸比亞迪電子等新興競爭者，整體毛利率長期偏低（<span class="en">3–5%</span>），競爭烈度極高。</li>
+    <li><strong>潛在進入者（低）</strong>：電子代工業技術門檻與資本密集度極高，進入障礙大，新競爭者難以在短期達到規模經濟。</li>
+    <li><strong>替代品（中）</strong>：部分客戶（如 <span class="en">Apple</span>）考慮自建生產線，或以更高度自動化取代傳統代工，形成中等程度替代威脅。</li>
+    <li><strong>供應商議價力（中高）</strong>：關鍵零組件（特殊晶片、<span class="en">OLED</span> 面板）供應商集中度高，但鴻海龐大採購規模仍具相當談判籌碼。</li>
+    <li><strong>購買者議價力（高）</strong>：主要客戶（<span class="en">Apple</span>）佔鴻海營收比重大，客戶集中度高導致購買者議價力極強，鴻海須持續壓低成本維持合約。</li>
+  </ul>
+
+  <p>綜合評估：台灣電子代工是一個高競爭、低利潤的產業。新創企業若欲進入，應找到能繞過主要競爭力量的差異化進入點，例如：專攻高複雜度、小批量的利基代工需求（降低競爭者直接對抗），或往上游關鍵零組件佈局（提升供應商議價力翻轉地位）。</p>
+
+  <div class="section-title">（三）五力分析總結</div>
+  <div class="summary-box">
+    <p>五力分析讓我意識到，創業或投資一個新市場之前，必須先「看清楚遊戲規則」。一個表面機會無窮的市場，若五力評估後發現買方議價力極強且替代品威脅大，即便進入也難以獲取足夠利潤。</p>
+    <p>對我個人而言，五力分析不只是商業策略工具，更是一種「結構性思維」的訓練——面對任何競爭態勢，都要先問「誰掌握了議價優勢？」、「誰可以替代我？」、「誰可以輕易複製我？」。只有清楚回答了這些問題，才能找到真正有防禦力的市場定位，創業成功的機率才會大幅提升。</p>
+  </div>
+
+</div><!-- end page 4 -->
+
+
+<!-- ════════════════════════════════
+     頁 5：SWOT 分析
+════════════════════════════════ -->
+<div class="page">
+
+  <div class="topic-title">五、<span class="en">SWOT</span> 分析</div>
+
+  <div class="section-title">（一）<span class="en">SWOT</span> 分析原理</div>
+
+  <p><span class="en">SWOT</span> 分析是由美國史丹佛研究所（<span class="en">Stanford Research Institute</span>）的 <span class="en">Albert Humphrey</span> 於 <span class="en">1960</span> 至 <span class="en">1970</span> 年代主導開發，後由 <span class="en">Learned</span> 等學者於 <span class="en">1965</span> 年出版的《<span class="en">Business Policy</span>》一書中正式確立，成為策略規劃領域最廣泛使用的分析工具之一。</p>
+
+  <p><span class="en">SWOT</span> 代表四個維度的首字母縮寫：</p>
+  <ul>
+    <li><strong><span class="en">S（Strengths，優勢）</span></strong>：組織內部相對於競爭者的核心能力或資源優勢，例如專利技術、品牌知名度、優秀的人才庫、高效的供應鏈管理能力。</li>
+    <li><strong><span class="en">W（Weaknesses，劣勢）</span></strong>：組織內部的不足或限制，例如資金匱乏、技術落後、通路覆蓋不足、管理效率低落。</li>
+    <li><strong><span class="en">O（Opportunities，機會）</span></strong>：外部環境中對組織有利的趨勢或因素，例如市場需求快速成長、競爭對手退出、政府政策利好、新技術出現帶來的市場空白。</li>
+    <li><strong><span class="en">T（Threats，威脅）</span></strong>：外部環境中可能傷害組織的不利因素，例如新競爭者大舉進入、替代技術崛起、經濟衰退、原物料價格上漲。</li>
+  </ul>
+
+  <p><span class="en">SWOT</span> 分析的關鍵在於區分「內部因素」（<span class="en">S/W</span>，組織可控制）與「外部因素」（<span class="en">O/T</span>，組織須適應），並據此制訂具有針對性的策略方向。</p>
+
+  <!-- SWOT 圖 -->
+  <figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/SWOT_en.svg/400px-SWOT_en.svg.png"
+         alt="SWOT 分析矩陣圖"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+    <div style="display:none; border:1px solid #ccc; padding:8mm; text-align:center; background:#f5f5f5; font-size:10pt; color:#666;">
+      ［SWOT矩陣示意：2×2方格，左上為Strengths（優勢），右上為Weaknesses（劣勢），左下為Opportunities（機會），右下為Threats（威脅）；橫軸區分內部/外部因素，縱軸區分正面/負面因素］
+    </div>
+    <figcaption>圖<span class="en">5</span>　<span class="en">SWOT</span> 分析矩陣（<span class="en">SWOT Analysis Matrix</span>）<br>
+    圖片來源：<span class="en">Wikimedia Commons, <em>SWOT en.svg</em>, CC BY-SA 3.0</span></figcaption>
+  </figure>
+
+  <div class="section-title">（二）<span class="en">SWOT</span> 分析運用技巧</div>
+
+  <p><span class="en">SWOT</span> 分析的進階用法，是在完成基本四格分析後，進一步進行「交叉策略分析」（<span class="en">Cross-Analysis</span>），即將內部因素與外部因素兩兩配對，產生四種策略方向：</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>機會（<span class="en">O</span>）</th>
+        <th>威脅（<span class="en">T</span>）</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>優勢（<span class="en">S</span>）</strong></td>
+        <td><strong><span class="en">SO</span> 策略（進攻）</strong>：運用優勢把握機會，積極成長</td>
+        <td><strong><span class="en">ST</span> 策略（防禦）</strong>：發揮優勢抵禦外部威脅</td>
+      </tr>
+      <tr>
+        <td><strong>劣勢（<span class="en">W</span>）</strong></td>
+        <td><strong><span class="en">WO</span> 策略（轉型）</strong>：把握機會彌補內部不足</td>
+        <td><strong><span class="en">WT</span> 策略（撤退）</strong>：減少劣勢暴露、規避威脅</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>以台灣新創電商服務公司「<span class="en">91APP</span>」為例進行 <span class="en">SWOT</span> 分析：</p>
+  <ul>
+    <li><strong>優勢（<span class="en">S</span>）</strong>：深厚的本土零售數位化技術積累；與台灣知名零售品牌（寶雅、裕珍馨等）建立的長期合作關係；<span class="en">OMO</span>（線上線下整合）解決方案在台灣的高市場認知度。</li>
+    <li><strong>劣勢（<span class="en">W</span>）</strong>：相較國際電商平台（<span class="en">Shopify</span>），規模較小、國際化能力有限；中小型品牌客戶的付費意願相對保守。</li>
+    <li><strong>機會（<span class="en">O</span>）</strong>：東南亞零售數位化需求快速成長；台灣品牌積極佈局海外，跨境電商需求上升；後疫情時代消費者對 <span class="en">OMO</span> 購物體驗接受度持續提高。</li>
+    <li><strong>威脅（<span class="en">T</span>）</strong>：<span class="en">Shopify</span> 等國際平台以低成本方案進軍台灣；<span class="en">TikTok Shop</span> 等社群電商崛起，改變消費者購物行為；本土競爭者模仿能力強。</li>
+  </ul>
+
+  <p><strong><span class="en">SO</span> 策略（本案最適）</strong>：運用本土深度整合優勢，積極協助台灣品牌進行東南亞數位化擴張，建立跨境電商新版圖，在國際競爭者尚未深耕的市場搶先卡位。</p>
+
+  <p><strong><span class="en">ST</span> 策略</strong>：強化品牌差異化與客製化服務深度，形成讓國際大平台難以快速複製的「在地護城河」（本土法規、語言、支付整合等），提高客戶轉換成本。</p>
+
+  <div class="section-title">（三）<span class="en">SWOT</span> 分析總結</div>
+  <div class="summary-box">
+    <p><span class="en">SWOT</span> 分析雖然看似簡單，但真正做好卻不容易。許多人做完 <span class="en">SWOT</span> 填完四格就結束了，卻忽略了「交叉策略分析」才是這個工具最大的價值所在。<span class="en">SWOT</span> 的本質是引導策略思考——如何最大化優勢、轉化劣勢、把握機會、抵禦威脅，四者缺一不可。</p>
+    <p>對我個人而言，<span class="en">SWOT</span> 分析讓我學會在任何決策之前，先從「我有什麼內部條件」和「外在環境如何」兩個維度系統性地盤點現況，而非憑直覺行事。這種工具在創業規劃、職涯選擇乃至日常重大決策中，都有極其廣泛且實用的應用價值。</p>
+  </div>
+
+  <!-- 頁尾 -->
+  <hr class="page-divider" style="margin-top: 12mm;">
+  <p class="no-indent" style="text-align:center; font-size:10pt; color:#666;">
+    國立臺北科技大學　創業概論課程　平時作業<span class="en">3</span><br>
+    學號：<span class="en">113590451</span>　李元睿　資工二　<span class="en">114</span>學年度第<span class="en">2</span>學期
+  </p>
+
+</div><!-- end page 5 -->
+
+</body>
+</html>
