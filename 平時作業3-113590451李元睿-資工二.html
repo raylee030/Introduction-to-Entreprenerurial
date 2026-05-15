@@ -6,19 +6,21 @@
 <title>平時作業3 心得分享 - 113590451 李元睿</title>
 <style>
   /* ─── 基本字型設定 ─── */
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
-
+  /*
+   * 字型策略：Times New Roman 列第一位，負責 ASCII（英文、數字、標點）；
+   * 標楷體系列列其後，負責中文字元（Times New Roman 無 CJK 字形，自動 fallback）。
+   */
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    font-family: 'BiauKai', '標楷體', 'DFKai-SB', 'Noto Serif TC', serif;
+    font-family: 'Times New Roman', Times, 'BiauKai', '標楷體', 'DFKai-SB', serif;
     font-size: 12pt;
     line-height: 1.9;
     color: #000;
     background: #e0e0e0;
   }
 
-  /* ─── A4 頁面模擬 ─── */
+  /* ─── A4 直向頁面模擬 ─── */
   .page {
     width: 210mm;
     min-height: 297mm;
@@ -29,10 +31,8 @@
     page-break-after: always;
   }
 
-  /* ─── 英文與數字用 Times New Roman ─── */
-  .en, em, code, .en-num {
-    font-family: 'Times New Roman', Times, serif;
-  }
+  /* .en 保留供語意標記，字型已由 body 堆疊統一處理 */
+  .en { font-family: 'Times New Roman', Times, serif; }
 
   /* ─── 標題區塊 ─── */
   .doc-header {
@@ -170,6 +170,11 @@
   }
 
   /* ─── 列印設定 ─── */
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
   @media print {
     body { background: #fff; }
     .page {
@@ -177,6 +182,7 @@
       padding: 25mm 25mm 20mm 25mm;
       box-shadow: none;
       page-break-after: always;
+      width: 210mm;
     }
   }
 </style>
